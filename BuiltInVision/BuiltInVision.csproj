@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEB9B82C-BFC3-4DD5-A39D-E907D1351952}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BuiltInVision</RootNamespace>
+    <AssemblyName>BuiltInVision</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>게시\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>camera-endoscopic.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CyUSB, Version=3.4.7.0, Culture=neutral, PublicKeyToken=01f1d2b6c851ae92, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Illumination\CyUSB.dll</HintPath>
+    </Reference>
+    <Reference Include="devDept.Eyeshot.Control.v9, Version=9.0.509.0, Culture=neutral, PublicKeyToken=5385d83d2fb4d7d9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\devDept Software\Eyeshot Ultimate 9.0\Bin\devDept.Eyeshot.Control.v9.dll</HintPath>
+    </Reference>
+    <Reference Include="devDept.Eyeshot.Dicom.v9, Version=9.0.509.0, Culture=neutral, PublicKeyToken=5385d83d2fb4d7d9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\devDept Software\Eyeshot Ultimate 9.0\Bin\devDept.Eyeshot.Dicom.v9.dll</HintPath>
+    </Reference>
+    <Reference Include="devDept.Eyeshot.Kinect.v9, Version=9.0.509.0, Culture=neutral, PublicKeyToken=5385d83d2fb4d7d9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\devDept Software\Eyeshot Ultimate 9.0\Bin\devDept.Eyeshot.Kinect.v9.dll</HintPath>
+    </Reference>
+    <Reference Include="devDept.Geometry.v9, Version=9.0.509.0, Culture=neutral, PublicKeyToken=5385d83d2fb4d7d9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\devDept Software\Eyeshot Ultimate 9.0\Bin\devDept.Geometry.v9.dll</HintPath>
+    </Reference>
+    <Reference Include="devDept.Graphics.v9, Version=9.0.509.0, Culture=neutral, PublicKeyToken=5385d83d2fb4d7d9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\devDept Software\Eyeshot Ultimate 9.0\Bin\devDept.Graphics.v9.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.Blob, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.Blob.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.CPlusPlus, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.CPlusPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.UserInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.UserInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CadSrc\Dimensioning.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CadSrc\DraftingViewportLayout.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CadSrc\Drawing.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CadSrc\Editing.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CadSrc\Snapping.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\IniFile.cs" />
+    <Compile Include="Common\LogFile.cs" />
+    <Compile Include="LaserVision\DialogLaserVision\GridSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\GridSettingForm.designer.cs">
+      <DependentUpon>GridSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcess_HoughLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcess_HoughLine.Designer.cs">
+      <DependentUpon>ImageProcess_HoughLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImgViewerViewportLayout.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\LightControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\LightControl.designer.cs">
+      <DependentUpon>LightControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\VisionSizeSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\VisionSizeSetting.Designer.cs">
+      <DependentUpon>VisionSizeSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\OpenCV\ProcessHoughLine.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcessingViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcessingViewer.Designer.cs">
+      <DependentUpon>ImageProcessingViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcessViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcessViewer.Designer.cs">
+      <DependentUpon>ImageProcessViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcess_FitCircle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcess_FitCircle.Designer.cs">
+      <DependentUpon>ImageProcess_FitCircle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcess_TemplateMatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\ImageProcess_TemplateMatch.Designer.cs">
+      <DependentUpon>ImageProcess_TemplateMatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\LaserVisionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\LaserVisionControl.Designer.cs">
+      <DependentUpon>LaserVisionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\VisionSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\VisionSetting.Designer.cs">
+      <DependentUpon>VisionSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\OpenCV\OpenCVData.cs" />
+    <Compile Include="LaserVision\OpenCV\ProcessCalFindCenter.cs" />
+    <Compile Include="LaserVision\OpenCV\ProcessFitCircle.cs" />
+    <Compile Include="LaserVision\OpenCV\ProcessTemplateMatch.cs" />
+    <Compile Include="LaserVision\OpenCV\ProcessThreshold.cs" />
+    <Compile Include="LaserVision\OpenCV\ProcessUtils.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringLib.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringLib.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\GridSettingForm.resx">
+      <DependentUpon>GridSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\ImageProcess_HoughLine.resx">
+      <DependentUpon>ImageProcess_HoughLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\LightControl.resx">
+      <DependentUpon>LightControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\VisionSizeSetting.resx">
+      <DependentUpon>VisionSizeSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\ImageProcessingViewer.resx">
+      <DependentUpon>ImageProcessingViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\ImageProcessViewer.resx">
+      <DependentUpon>ImageProcessViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\ImageProcess_FitCircle.resx">
+      <DependentUpon>ImageProcess_FitCircle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\ImageProcess_TemplateMatch.resx">
+      <DependentUpon>ImageProcess_TemplateMatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\LaserVisionControl.resx">
+      <DependentUpon>LaserVisionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\VisionSetting.resx">
+      <DependentUpon>VisionSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="StringLib.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringLib.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="DLL\Eyeshot_cad\x64\AcIdViewObj_4.02_11.tx" />
+    <None Include="DLL\Eyeshot_cad\x64\ModelerGeometry_4.02_11.tx" />
+    <None Include="DLL\Eyeshot_cad\x64\RecomputeDimBlock_4.02_11.tx" />
+    <None Include="DLL\Eyeshot_cad\x64\TD_DynBlocks_4.02_11.tx" />
+    <None Include="DLL\Eyeshot_cad\x86\AcIdViewObj_4.02_11.tx" />
+    <None Include="DLL\Eyeshot_cad\x86\ModelerGeometry_4.02_11.tx" />
+    <None Include="DLL\Eyeshot_cad\x86\RecomputeDimBlock_4.02_11.tx" />
+    <None Include="DLL\Eyeshot_cad\x86\TD_DynBlocks_4.02_11.tx" />
+    <None Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.Blob.dll.config" />
+    <None Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.CPlusPlus.dll.config" />
+    <None Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.dll.config" />
+    <None Include="DLL\OpenCVSharp-2.4.10-x64\README.md" />
+    <None Include="DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.Blob.dll.config" />
+    <None Include="DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.CPlusPlus.dll.config" />
+    <None Include="DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.dll.config" />
+    <None Include="DLL\OpenCvSharp-2.4.10-x86\README.md" />
+    <None Include="DLL\OpenCVSharp\OpenCvSharp.Blob.dll.config" />
+    <None Include="DLL\OpenCVSharp\OpenCvSharp.CPlusPlus.dll.config" />
+    <None Include="DLL\OpenCVSharp\OpenCvSharp.dll.config" />
+    <None Include="DLL\OpenCVSharp\README.md" />
+    <None Include="DLL\OpenCV_2.4.10\opencv-2.4.10.zip" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="camera-endoscopic.ico" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Control.v9.dll" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Control.v9.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Dicom.v9.dll" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Dicom.v9.xml" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Kinect.v9.dll" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Kinect.v9.xml" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Geometry.v9.dll" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Geometry.v9.xml" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Graphics.v9.dll" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Graphics.v9.xml" />
+    <Content Include="DLL\Eyeshot_cad\x64\CopyModules.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\devDept.Eyeshot.Control.Wpf.x64.v9.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\devDept.Eyeshot.Control.x64.v9.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\sisl.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_AcisBuilder_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Alloc_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_BrepRenderer_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Br_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_DbRoot_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Db_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Ge_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Gi_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Gs_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_MgdBrep_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Mgd_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Root_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x64\TD_SpatialIndex_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\CopyModules.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\devDept.Eyeshot.Control.Wpf.x86.v9.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\devDept.Eyeshot.Control.x86.v9.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\sisl.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_AcisBuilder_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Alloc_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_BrepRenderer_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Br_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_DbRoot_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Db_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Ge_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Gi_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Gs_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_MgdBrep_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Mgd_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Root_4.02_11.dll" />
+    <Content Include="DLL\Eyeshot_cad\x86\TD_SpatialIndex_4.02_11.dll" />
+    <Content Include="DLL\Illumination\CyUSB.dll" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\LICENSE.txt" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.Blob.dll" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.CPlusPlus.dll" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.dll" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.Extensions.dll" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.UserInterface.dll" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharpExtern.dll" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-English\OpenCvSharp.Blob.xml" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-English\OpenCvSharp.CPlusPlus.xml" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-English\OpenCvSharp.Extensions.xml" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-English\OpenCvSharp.UserInterface.xml" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-English\OpenCvSharp.xml" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-Japanese\OpenCvSharp.Blob.xml" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-Japanese\OpenCvSharp.CPlusPlus.xml" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-Japanese\OpenCvSharp.Extensions.xml" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-Japanese\OpenCvSharp.UserInterface.xml" />
+    <Content Include="DLL\OpenCVSharp-2.4.10-x64\XmlDoc-Japanese\OpenCvSharp.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\DebuggerVisualizers\2010\OpenCvSharp.DebuggerVisualizers.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\DebuggerVisualizers\2012\OpenCvSharp.DebuggerVisualizers.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\DebuggerVisualizers\2013\OpenCvSharp.DebuggerVisualizers.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\DebuggerVisualizers\2015\OpenCvSharp.DebuggerVisualizers.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\LICENSE.txt" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.Blob.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.CPlusPlus.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.Extensions.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\OpenCvSharp.UserInterface.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\OpenCvSharpExtern.dll" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-English\OpenCvSharp.Blob.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-English\OpenCvSharp.CPlusPlus.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-English\OpenCvSharp.Extensions.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-English\OpenCvSharp.UserInterface.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-English\OpenCvSharp.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-Japanese\OpenCvSharp.Blob.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-Japanese\OpenCvSharp.CPlusPlus.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-Japanese\OpenCvSharp.Extensions.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-Japanese\OpenCvSharp.UserInterface.xml" />
+    <Content Include="DLL\OpenCvSharp-2.4.10-x86\XmlDoc-Japanese\OpenCvSharp.xml" />
+    <Content Include="DLL\OpenCVSharp\LICENSE.txt" />
+    <Content Include="DLL\OpenCVSharp\OpenCvSharp.Blob.dll" />
+    <Content Include="DLL\OpenCVSharp\OpenCvSharp.CPlusPlus.dll" />
+    <Content Include="DLL\OpenCVSharp\OpenCvSharp.dll" />
+    <Content Include="DLL\OpenCVSharp\OpenCvSharp.Extensions.dll" />
+    <Content Include="DLL\OpenCVSharp\OpenCvSharp.UserInterface.dll" />
+    <Content Include="DLL\OpenCVSharp\OpenCvSharpExtern.dll" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-English\OpenCvSharp.Blob.xml" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-English\OpenCvSharp.CPlusPlus.xml" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-English\OpenCvSharp.Extensions.xml" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-English\OpenCvSharp.UserInterface.xml" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-English\OpenCvSharp.xml" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-Japanese\OpenCvSharp.Blob.xml" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-Japanese\OpenCvSharp.CPlusPlus.xml" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-Japanese\OpenCvSharp.Extensions.xml" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-Japanese\OpenCvSharp.UserInterface.xml" />
+    <Content Include="DLL\OpenCVSharp\XmlDoc-Japanese\OpenCvSharp.xml" />
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\msvcp120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\OpenCvSharpExtern.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_calib3d2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_contrib2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_core2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_features2d2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_ffmpeg2410_64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_flann2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_gpu2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_highgui2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_imgproc2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_legacy2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_ml2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_nonfree2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_objdetect2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_ocl2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_photo2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_stitching2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_superres2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_video2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x64\opencv_videostab2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\msvcp120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\OpenCvSharpExtern.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_calib3d2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_contrib2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_core2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_features2d2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_ffmpeg2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_flann2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_gpu2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_highgui2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_imgproc2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_legacy2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_ml2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_nonfree2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_objdetect2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_ocl2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_photo2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_stitching2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_superres2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_video2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\OpenCV_2.4.10\NativeDlls\x86\opencv_videostab2410.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DLL\OpenCVSharp-2.4.10-x64\DebuggerVisualizers\2010\" />
+    <Folder Include="DLL\OpenCVSharp-2.4.10-x64\DebuggerVisualizers\2012\" />
+    <Folder Include="DLL\OpenCVSharp-2.4.10-x64\DebuggerVisualizers\2013\" />
+    <Folder Include="DLL\OpenCVSharp-2.4.10-x64\DebuggerVisualizers\2015\" />
+    <Folder Include="DLL\OpenCVSharp\DebuggerVisualizers\2010\" />
+    <Folder Include="DLL\OpenCVSharp\DebuggerVisualizers\2012\" />
+    <Folder Include="DLL\OpenCVSharp\DebuggerVisualizers\2013\" />
+    <Folder Include="DLL\OpenCVSharp\DebuggerVisualizers\2015\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
