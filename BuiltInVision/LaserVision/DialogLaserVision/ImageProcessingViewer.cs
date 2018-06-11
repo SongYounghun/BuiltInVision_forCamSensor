@@ -24,6 +24,10 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
         OpenCVData m_cvData = null;
         LaserVisionControl m_laserVisionControl = null;
         viewMode m_viewMode = viewMode.Orignal;
+        public viewMode ViewerMode
+        {
+            get { return m_viewMode; }
+        }
 
         private Plane xyPlane;
         private Point3D moveFrom;
@@ -55,6 +59,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
         {
             try
             {
+                viewportLayout1.InitViewer(this);
                 viewportLayout1.Layers[0].LineWeight = 2;
 
                 // Entities[0] ---> Image
