@@ -256,6 +256,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StringLib.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Config\InitVis_ref.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DLL\Eyeshot_cad\x64\AcIdViewObj_4.02_11.tx" />
     <None Include="DLL\Eyeshot_cad\x64\ModelerGeometry_4.02_11.tx" />
     <None Include="DLL\Eyeshot_cad\x64\RecomputeDimBlock_4.02_11.tx" />

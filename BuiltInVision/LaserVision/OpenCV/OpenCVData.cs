@@ -16,6 +16,56 @@ namespace GalvoScanner.LaserVision.OpenCV
 {
     public class OpenCVData
     {
+        private static List<OpenCVData> m_listCvData = null;
+        public static void CreateOpenCvDataList(int count)
+        {
+            if (m_listCvData == null)
+            {
+                m_listCvData = new List<OpenCVData>();
+                for (int i = 0; i < count; i++)
+                {
+                    OpenCVData cvData = new OpenCVData();
+                    m_listCvData.Add(cvData);
+                }
+            }
+        }
+        public static void CreateOpenCvDataList()
+        {
+            if (m_listCvData == null)
+            {
+                IniFile ini = new IniFile();
+                string iniVal = ini.IniReadValue("VISION", "COUNT", Application.StartupPath + "\\Config\\InitVis.ini");
+                if (!String.IsNullOrEmpty(iniVal))
+                {
+                    int count = Convert.ToInt32(iniVal);
+                    m_listCvData = new List<OpenCVData>();
+                    for (int i = 0; i < count; i++)
+                    {
+                        OpenCVData cvData = new OpenCVData();
+                        m_listCvData.Add(cvData);
+                    }
+                }                
+            }
+        }
+        public static OpenCVData GetInstance(int listIndex)
+        {
+            if (m_listCvData != null && m_listCvData.Count > 0 && listIndex < m_listCvData.Count && listIndex >= 0)
+            {
+                return m_listCvData[listIndex];
+            }
+            return null;
+        }
+        public static int GetOpencvDataCount()
+        {
+            if (m_listCvData != null && m_listCvData.Count > 0)
+            {
+                return m_listCvData.Count;
+            }
+            return 0;
+        }
+
+
+
         private static OpenCVData m_cvData = null;
         public static OpenCVData GetInstance()
         {

@@ -151,7 +151,17 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
         private void VisionSetting_Load(object sender, EventArgs e)
         {
-            propertyGrid_vision_setting.SelectedObject = m_cvData;
+            int visCnt = OpenCVData.GetOpencvDataCount();
+            for (int i = 0; i < visCnt; i++)
+            {
+                comboBox_vis_index.Items.Add(i);
+            }
+            if (visCnt > 0)
+            {
+                comboBox_vis_index.SelectedIndex = 0;
+            }
+
+            //propertyGrid_vision_setting.SelectedObject = m_cvData;
             m_bIsLoading = false;
         }
 
@@ -226,6 +236,19 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
         {
             m_cvData.GetCaptureProperty();
             propertyGrid_vision_setting.SelectedObject = m_cvData;
+        }
+
+        private void comboBox_vis_index_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                m_cvData = OpenCVData.GetInstance(comboBox_vis_index.SelectedIndex);
+                propertyGrid_vision_setting.SelectedObject = m_cvData;
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message);
+            }
         }
     }
 }

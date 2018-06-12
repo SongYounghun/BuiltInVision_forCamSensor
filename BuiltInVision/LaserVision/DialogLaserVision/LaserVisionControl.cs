@@ -104,7 +104,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
         public LaserVisionControl()
         {
-            m_cvData = OpenCVData.GetInstance();
+            m_cvData = OpenCVData.GetInstance(0);
 
             InitializeComponent();
 

@@ -32,7 +32,9 @@ namespace BuiltInVision
             InitializeComponent();
             viewportLayout1.Unlock("EYEULT-9VQS-QUNSX-RM12U-SH0LL");
 
-            m_cvData = OpenCVData.GetInstance();
+            OpenCVData.CreateOpenCvDataList();
+            m_cvData = OpenCVData.GetInstance(0);
+            //m_cvData = OpenCVData.GetInstance();
             InitialVisionCtrl();
         }
 
@@ -112,7 +114,7 @@ namespace BuiltInVision
                     if (!m_cvData.GetUseVision())
                     {
                         tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_vision"));
-                        tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_Light"));
+                        //tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_Light"));
                     }
 
                     m_VisionSetting.ChangedVisionSetting += new EventHandler(ChangedVisionSetting);
@@ -232,8 +234,10 @@ namespace BuiltInVision
                     }
                     else
                     {
-                        tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_vision"));
-                        tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_Light"));
+                        if (tabControl_properties.TabPages.IndexOfKey("tabPage_vision") != -1)
+                        {
+                            tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_vision"));
+                        }
                     }
                 }
 
