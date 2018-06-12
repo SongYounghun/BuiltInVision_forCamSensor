@@ -158,13 +158,16 @@ namespace GalvoScanner.LaserVision.OpenCV
 
         public bool LoadTemplateImage(string path)
         {
-            IplImage img = Cv.LoadImage(path);
-            if (img != null)
+            if (!string.IsNullOrEmpty(path))
             {
-                SetIPLImageTemplate(img);
-                m_strTemplateImagePath = path;
-                m_rectTemplateROI = new Rectangle(0, 0, img.Width, img.Height);
-                return true;
+                IplImage img = Cv.LoadImage(path);
+                if (img != null)
+                {
+                    SetIPLImageTemplate(img);
+                    m_strTemplateImagePath = path;
+                    m_rectTemplateROI = new Rectangle(0, 0, img.Width, img.Height);
+                    return true;
+                }            
             }            
             return false;
         }
