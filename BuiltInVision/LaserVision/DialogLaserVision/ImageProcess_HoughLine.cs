@@ -30,6 +30,7 @@ namespace BuiltInVision.LaserVision.DialogLaserVision
         private void button_apply_Click(object sender, EventArgs e)
         {
             UpdateData(false);
+            MessageBox.Show("Completed apply.");
         }
 
         public void UpdateData(bool isLoad = true)
@@ -44,6 +45,7 @@ namespace BuiltInVision.LaserVision.DialogLaserVision
                     textBox_hough_thresold.Text = m_cvData.GetProcessHoughLine().HoughLineThreshold.ToString();                    
                     textBox_tilt.Text = m_cvData.GetProcessHoughLine().Tilt.ToString();
                     textBox_tilt_range.Text = m_cvData.GetProcessHoughLine().TiltRange.ToString();
+                    checkBox_insp_in_result_roi.Checked = m_cvData.GetProcessHoughLine().ResultInROI;
                 }
                 else
                 {
@@ -53,6 +55,7 @@ namespace BuiltInVision.LaserVision.DialogLaserVision
                     m_cvData.GetProcessHoughLine().HoughLineThreshold = Convert.ToInt32(textBox_hough_thresold.Text);
                     m_cvData.GetProcessHoughLine().Tilt = Convert.ToDouble(textBox_tilt.Text);
                     m_cvData.GetProcessHoughLine().TiltRange = Convert.ToDouble(textBox_tilt_range.Text);
+                    m_cvData.GetProcessHoughLine().ResultInROI = checkBox_insp_in_result_roi.Checked;
                 }
             }
             catch (Exception E)
@@ -120,12 +123,6 @@ namespace BuiltInVision.LaserVision.DialogLaserVision
             MessageBox.Show(m_cvData.StringResult.ToString());
         }
 
-        private void pictureBox_hough_result_Click(object sender, EventArgs e)
-        {
-            ImageProcessViewer viewer = new ImageProcessViewer(m_cvData.GetProcessHoughLine().GetIPLImageHoughResult());
-            viewer.ShowDialog();
-        }
-
         private void button_add_houghline_process_Click(object sender, EventArgs e)
         {
             try
@@ -138,5 +135,10 @@ namespace BuiltInVision.LaserVision.DialogLaserVision
             }
         }
 
+        private void pictureBox_hough_result_DoubleClick(object sender, EventArgs e)
+        {
+            ImageProcessViewer viewer = new ImageProcessViewer(m_cvData.GetProcessHoughLine().GetIPLImageHoughResult());
+            viewer.ShowDialog();
+        }
     }
 }

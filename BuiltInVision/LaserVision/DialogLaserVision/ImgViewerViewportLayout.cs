@@ -43,7 +43,6 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                                                         WorldToScreen(new Point3D(m_cvData.GetResultPosition().X + 1, m_cvData.GetResultPosition().Y)));
                         renderContext.DrawLine(WorldToScreen(new Point3D(m_cvData.GetResultPosition().X, m_cvData.GetResultPosition().Y - 1)),
                                                         WorldToScreen(new Point3D(m_cvData.GetResultPosition().X, m_cvData.GetResultPosition().Y + 1)));
-
                     }
 
                     if (m_cvData.GetResultRect() != new CvRect(-1, -1, 0, 0))

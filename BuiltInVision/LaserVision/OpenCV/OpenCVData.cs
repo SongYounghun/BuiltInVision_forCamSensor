@@ -1025,6 +1025,7 @@ namespace GalvoScanner.LaserVision.OpenCV
 
                 m_processTempMatch.SaveRecipeINI(path, ini);
                 m_processFitCircle.SaveRecipeINI(path, ini);
+                m_processHoughLine.SaveRecipeINI(path, ini);
                 
             }
             catch (Exception E)
@@ -1068,6 +1069,7 @@ namespace GalvoScanner.LaserVision.OpenCV
 
                     m_processTempMatch.LoadRecipeINI(path, ini);
                     m_processFitCircle.LoadRecipeINI(path, ini);
+                    m_processHoughLine.LoadRecipeINI(path, ini);
 
                     m_cvData.m_strRecipePath = path;
 

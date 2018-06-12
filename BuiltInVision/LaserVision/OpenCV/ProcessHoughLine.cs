@@ -1,7 +1,9 @@
-﻿using GalvoScanner.LaserVision.OpenCV;
+﻿using GalvoScanner;
+using GalvoScanner.LaserVision.OpenCV;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,13 @@ namespace BuiltInVision.LaserVision.OpenCV
     public class ProcessHoughLine
     {
         public const string VISIONRCP_HOUGHLINE_SECTION = "Vision HoughLine Recipe";
+        public const string VISIONRCP_HOUGHLINE_KEY_TILT = "HOUGHLINE_TILT";
+        public const string VISIONRCP_HOUGHLINE_KEY_TILTRANGE = "HOUGHLINE_TILTRANGE";
+        public const string VISIONRCP_HOUGHLINE_KEY_BINTHRESOLD = "HOUGHLINE_BINTHRESOLD";
+        public const string VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD1 = "HOUGHLINE_CANNYTHRESOLD1";
+        public const string VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD2 = "HOUGHLINE_CANNYTHRESOLD2";
+        public const string VISIONRCP_HOUGHLINE_KEY_HOUGHTHRESOLD = "HOUGHLINE_HOUGHTHRESOLD";
+        public const string VISIONRCP_HOUGHLINE_KEY_INRESULTROI = "HOUGHLINE_INRESULTROI";
 
         private double m_fResultTilt = 0;
 
@@ -28,32 +37,39 @@ namespace BuiltInVision.LaserVision.OpenCV
             set { m_dTiltRange = value; }
         }
 
-        private double m_dBinThreshold = 120;
-        public double BinaryThreshold
+        private int m_dBinThreshold = 120;
+        public int BinaryThreshold
         {
             get { return m_dBinThreshold; }
             set { m_dBinThreshold = value; }
         }
 
-        private double m_dCanThreshold1 = 50;
-        public double CannyThreshold1
+        private int m_dCanThreshold1 = 50;
+        public int CannyThreshold1
         {
             get { return m_dCanThreshold1; }
             set { m_dCanThreshold1 = value; }
         }
 
-        private double m_dCanThreshold2 = 50;
-        public double CannyThreshold2
+        private int m_dCanThreshold2 = 50;
+        public int CannyThreshold2
         {
             get { return m_dCanThreshold2; }
             set { m_dCanThreshold2 = value; }
         }
 
-        private double m_dHoughThreshold = 50;
-        public double HoughLineThreshold
+        private int m_dHoughThreshold = 50;
+        public int HoughLineThreshold
         {
             get { return m_dHoughThreshold; }
             set { m_dHoughThreshold = value; }
+        }
+
+        private bool m_bResultInROI = false;
+        public bool ResultInROI
+        {
+            get { return m_bResultInROI; }
+            set { m_bResultInROI = value; }
         }
 
         public enum houghResultType { None = 0, OK, NoProcessImage, Tilt };
@@ -113,10 +129,27 @@ namespace BuiltInVision.LaserVision.OpenCV
 
         private IplImage HoughLines(IplImage src)
         {
-            houline = new IplImage(src.Size, BitDepth.U8, 3);
-            canny = new IplImage(src.Size, BitDepth.U8, 1);
+            bool isApplyRoi = false;
+            IplImage roiSrc = null;
+            CvRect roiRect = m_parent.GetResultRect();
+            if (m_bResultInROI)
+            {                
+                if (roiRect.X != -1 && roiRect.Y != -1)
+                {
+                    roiSrc = src.Clone(roiRect);
+                    isApplyRoi = true;
+                }                
+            }
 
-            canny = this.CannyEdge(this.Binary(src));
+            if (roiSrc == null)
+            {
+                roiSrc = src;
+            }
+
+            houline = new IplImage(roiSrc.Size, BitDepth.U8, 3);
+            canny = new IplImage(roiSrc.Size, BitDepth.U8, 1);
+
+            canny = this.CannyEdge(this.Binary(roiSrc));
             Cv.CvtColor(canny, houline, ColorConversion.GrayToBgr);
 
             CvMemStorage Storage = new CvMemStorage();
@@ -149,9 +182,15 @@ namespace BuiltInVision.LaserVision.OpenCV
                 houline.Circle(new CvPoint((int)x0, (int)y0), 5, CvColor.Yellow, -1);
                 houline.Line(pt1, pt2, CvColor.Red, 1, LineType.AntiAlias);
 
+                if (isApplyRoi)
+                {
+                    pt1.X += roiRect.X; pt1.Y += roiRect.Y;
+                    pt2.X += roiRect.X; pt2.Y += roiRect.Y;
+                }
+
                 CvLine2D line = new CvLine2D(pt1.X, pt1.Y, pt2.X, pt2.Y);
                 m_parent.GetListResultLines().Add(line);
-            }            
+            }
 
             return houline;
         }
@@ -179,6 +218,116 @@ namespace BuiltInVision.LaserVision.OpenCV
             }
 
             return m_executeHoughResult;
+        }
+
+        public void SaveRecipeINI(string path, IniFile ini)
+        {
+            try
+            {
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_TILT, m_fTilt.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_TILTRANGE, m_dTiltRange.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_BINTHRESOLD, m_dBinThreshold.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD1, m_dCanThreshold1.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD2, m_dCanThreshold2.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_HOUGHTHRESOLD, m_dHoughThreshold.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_INRESULTROI, m_bResultInROI.ToString(), path);
+            }
+            catch (Exception E)
+            {
+                throw E;
+            }
+        }
+
+        public void SaveRecipeINI(string path)
+        {
+            try
+            {
+                IniFile ini = new IniFile();
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_TILT, m_fTilt.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_TILTRANGE, m_dTiltRange.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_BINTHRESOLD, m_dBinThreshold.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD1, m_dCanThreshold1.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD2, m_dCanThreshold2.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_HOUGHTHRESOLD, m_dHoughThreshold.ToString(), path);
+                ini.IniWriteValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_INRESULTROI, m_bResultInROI.ToString(), path);
+            }
+            catch (Exception E)
+            {
+                throw E;
+            }
+        }
+
+        public bool LoadRecipeINI(string path, IniFile ini)
+        {
+            try
+            {
+                FileInfo file = new FileInfo(path);
+                if (file.Exists)
+                {
+                    String iniValue = "";
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_TILT, path);
+                    if (iniValue != "") { m_fTilt = Convert.ToDouble(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_TILTRANGE, path);
+                    if (iniValue != "") { m_dTiltRange = Convert.ToDouble(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_BINTHRESOLD, path);
+                    if (iniValue != "") { m_dBinThreshold = Convert.ToInt32(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD1, path);
+                    if (iniValue != "") { m_dCanThreshold1 = Convert.ToInt32(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD2, path);
+                    if (iniValue != "") { m_dCanThreshold2 = Convert.ToInt32(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_HOUGHTHRESOLD, path);
+                    if (iniValue != "") { m_dHoughThreshold = Convert.ToInt32(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_INRESULTROI, path);
+                    if (iniValue != "") { m_bResultInROI = Convert.ToBoolean(iniValue); }
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception E)
+            {
+                throw E;
+            }
+        }
+
+        public bool LoadRecipeINI(string path)
+        {
+            try
+            {
+                FileInfo file = new FileInfo(path);
+                if (file.Exists)
+                {
+                    IniFile ini = new IniFile();
+                    String iniValue = "";
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_TILT, path);
+                    if (iniValue != "") { m_fTilt = Convert.ToDouble(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_TILTRANGE, path);
+                    if (iniValue != "") { m_dTiltRange = Convert.ToDouble(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_BINTHRESOLD, path);
+                    if (iniValue != "") { m_dBinThreshold = Convert.ToInt32(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD1, path);
+                    if (iniValue != "") { m_dCanThreshold1 = Convert.ToInt32(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_CANNYTHRESOLD2, path);
+                    if (iniValue != "") { m_dCanThreshold2 = Convert.ToInt32(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_HOUGHTHRESOLD, path);
+                    if (iniValue != "") { m_dHoughThreshold = Convert.ToInt32(iniValue); }
+                    iniValue = ini.IniReadValue(VISIONRCP_HOUGHLINE_SECTION, VISIONRCP_HOUGHLINE_KEY_INRESULTROI, path);
+                    if (iniValue != "") { m_bResultInROI = Convert.ToBoolean(iniValue); }
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception E)
+            {
+                throw E;
+            }
         }
     }
 }

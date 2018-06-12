@@ -1002,12 +1002,14 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             try
             {
                 SaveFileDialog saveFile = new SaveFileDialog();
-                saveFile.Filter = "LASERVISION file(*.lasvis)|*.lasvis|AllFile(*.*)|*.*";
-                saveFile.Title = "Save laser vision file";
+                saveFile.Filter = "CAMSENSOR file(*.sensorvis)|*.sensorvis|AllFile(*.*)|*.*";
+                saveFile.Title = "Save CAM sensor vision file";
                 if (saveFile.ShowDialog() == DialogResult.OK)
                 {
                     UpdateData(false);
                     m_cvData.SaveRecipeINI(saveFile.FileName);
+
+                    textBox_recipe_path.Text = m_cvData.GetRecipePath();
                 }
             }
             catch (Exception E)
@@ -1021,8 +1023,8 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             try
             {
                 OpenFileDialog openFile = new OpenFileDialog();
-                openFile.Filter = "LASERVISION file(*.lasvis)|*.lasvis|AllFile(*.*)|*.*";
-                openFile.Title = "Save laser vision file";
+                openFile.Filter = "CAMSENSOR file(*.sensorvis)|*.sensorvis|AllFile(*.*)|*.*";
+                openFile.Title = "Load CAM sensor vision file";
                 if (openFile.ShowDialog() == DialogResult.OK)
                 {
                     if (m_cvData.LoadRecipeINI(openFile.FileName))
@@ -1036,6 +1038,12 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                         {
                             m_fitCircle.UpdateData();
                         }
+                        if (m_houghLine != null)
+                        {
+                            m_houghLine.UpdateData();
+                        }
+
+                        textBox_recipe_path.Text = m_cvData.GetRecipePath();
                     }              
                 }
             }
@@ -1127,6 +1135,11 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             {
                 MessageBox.Show(E.ToString());
             }
+        }
+
+        private void button_new_vision_recipe_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

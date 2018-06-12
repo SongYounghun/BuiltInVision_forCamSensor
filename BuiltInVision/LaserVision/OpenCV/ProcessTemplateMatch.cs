@@ -347,68 +347,68 @@ namespace GalvoScanner.LaserVision.OpenCV
 
         private double m_fResultTilt = 0;
 
-        public matchResultType ExcuteHoughLine()
-        {
-            try
-            {
-                m_parent.SetResultPoint(new CvPoint(-1, -1));
-                m_parent.GetListResultPoints().Clear();
-                m_parent.SetResultRect(new CvRect(-1, -1, 0, 0));
+        //public matchResultType ExcuteHoughLine()
+        //{
+        //    try
+        //    {
+        //        m_parent.SetResultPoint(new CvPoint(-1, -1));
+        //        m_parent.GetListResultPoints().Clear();
+        //        m_parent.SetResultRect(new CvRect(-1, -1, 0, 0));
 
-                if (m_pImageTemplate == null)
-                {
-                    return matchResultType.NoTemplateImage;
-                }
+        //        if (m_pImageTemplate == null)
+        //        {
+        //            return matchResultType.NoTemplateImage;
+        //        }
 
-                if (m_parent.GetIPLImageProcessing() == null)
-                {
-                    return matchResultType.NoTemplateImage;
-                }
+        //        if (m_parent.GetIPLImageProcessing() == null)
+        //        {
+        //            return matchResultType.NoTemplateImage;
+        //        }
 
-                IplImage targetImg = m_parent.GetIPLImageProcessing();
-                IplImage resImg = Cv.CreateImage(Cv.Size((targetImg.Width - m_pImageTemplate.Width + 1), (targetImg.Height - m_pImageTemplate.Height + 1)), BitDepth.F32, 1);
+        //        IplImage targetImg = m_parent.GetIPLImageProcessing();
+        //        IplImage resImg = Cv.CreateImage(Cv.Size((targetImg.Width - m_pImageTemplate.Width + 1), (targetImg.Height - m_pImageTemplate.Height + 1)), BitDepth.F32, 1);
 
-                Cv.MatchTemplate(targetImg, m_pImageTemplate, resImg, MatchTemplateMethod.CCorrNormed);
+        //        Cv.MatchTemplate(targetImg, m_pImageTemplate, resImg, MatchTemplateMethod.CCorrNormed);
 
-                CvPoint minloc, maxloc;
-                double minval, maxval;
-                Cv.MinMaxLoc(resImg, out minval, out maxval, out minloc, out maxloc, null);
+        //        CvPoint minloc, maxloc;
+        //        double minval, maxval;
+        //        Cv.MinMaxLoc(resImg, out minval, out maxval, out minloc, out maxloc, null);
 
-                HoughLines(targetImg);
+        //        HoughLines(targetImg);
 
-                m_dScore = maxval;
+        //        m_dScore = maxval;
 
-                m_rectMatchResultROI.X = maxloc.X;
-                m_rectMatchResultROI.Y = maxloc.Y;
-                m_rectMatchResultROI.Width = m_pImageTemplate.Width;
-                m_rectMatchResultROI.Height = m_pImageTemplate.Height;
+        //        m_rectMatchResultROI.X = maxloc.X;
+        //        m_rectMatchResultROI.Y = maxloc.Y;
+        //        m_rectMatchResultROI.Width = m_pImageTemplate.Width;
+        //        m_rectMatchResultROI.Height = m_pImageTemplate.Height;
 
-                IplImage resultImage = houline.Clone();
-                m_pImageTemplateResult = houline.Clone();
-                m_parent.SetIPLImageProcessing(resultImage);
-                m_parent.SetResultPoint(new CvPoint(TargetResultPosition.X, TargetResultPosition.Y));
+        //        IplImage resultImage = houline.Clone();
+        //        m_pImageTemplateResult = houline.Clone();
+        //        m_parent.SetIPLImageProcessing(resultImage);
+        //        m_parent.SetResultPoint(new CvPoint(TargetResultPosition.X, TargetResultPosition.Y));
                 
-                m_parent.StringResult.Append("Score : "); m_parent.StringResult.AppendLine(m_dScore.ToString("0.00"));
-                m_parent.StringResult.Append("Position : "); m_parent.StringResult.Append(TargetResultPosition.X); m_parent.StringResult.Append(", "); m_parent.StringResult.AppendLine(TargetResultPosition.Y.ToString());
-                m_parent.StringResult.Append("Tilt : "); m_parent.StringResult.AppendLine(m_fResultTilt.ToString("0.00"));
+        //        m_parent.StringResult.Append("Score : "); m_parent.StringResult.AppendLine(m_dScore.ToString("0.00"));
+        //        m_parent.StringResult.Append("Position : "); m_parent.StringResult.Append(TargetResultPosition.X); m_parent.StringResult.Append(", "); m_parent.StringResult.AppendLine(TargetResultPosition.Y.ToString());
+        //        m_parent.StringResult.Append("Tilt : "); m_parent.StringResult.AppendLine(m_fResultTilt.ToString("0.00"));
 
-                m_executeMatchResult = matchResultType.OK;
+        //        m_executeMatchResult = matchResultType.OK;
 
-                //if (m_fResultTilt > m_fTilt)
-                //{
-                //    m_executeMatchResult = matchResultType.Tilt;
-                //}
+        //        //if (m_fResultTilt > m_fTilt)
+        //        //{
+        //        //    m_executeMatchResult = matchResultType.Tilt;
+        //        //}
 
-                resImg.Dispose();
-                Dispose();
+        //        resImg.Dispose();
+        //        Dispose();
 
-                return m_executeMatchResult;
-            }
-            catch (Exception E)
-            {
-                throw E;
-            }
-        }
+        //        return m_executeMatchResult;
+        //    }
+        //    catch (Exception E)
+        //    {
+        //        throw E;
+        //    }
+        //}
 
         public void SaveRecipeINI(string path, IniFile ini)
         {
@@ -558,71 +558,71 @@ namespace GalvoScanner.LaserVision.OpenCV
             }
         }
 
-        IplImage bin;
-        IplImage canny;
-        IplImage houline;
+        //IplImage bin;
+        //IplImage canny;
+        //IplImage houline;
 
-        public IplImage Binary(IplImage src)
-        {
-            bin = new IplImage(src.Size, BitDepth.U8, 1);
-            Cv.CvtColor(src, bin, ColorConversion.RgbToGray);
-            Cv.Threshold(bin, bin, 120, 255, ThresholdType.Binary);
-            return bin;
-        }
+        //public IplImage Binary(IplImage src)
+        //{
+        //    bin = new IplImage(src.Size, BitDepth.U8, 1);
+        //    Cv.CvtColor(src, bin, ColorConversion.RgbToGray);
+        //    Cv.Threshold(bin, bin, 120, 255, ThresholdType.Binary);
+        //    return bin;
+        //}
 
-        public IplImage CannyEdge(IplImage src)
-        {
-            canny = new IplImage(src.Size, BitDepth.U8, 1);
-            Cv.Canny(src, canny, 50, 100);
-            return canny;
-        }
+        //public IplImage CannyEdge(IplImage src)
+        //{
+        //    canny = new IplImage(src.Size, BitDepth.U8, 1);
+        //    Cv.Canny(src, canny, 50, 100);
+        //    return canny;
+        //}
 
-        public IplImage HoughLines(IplImage src)
-        {
-            houline = new IplImage(src.Size, BitDepth.U8, 3);
-            canny = new IplImage(src.Size, BitDepth.U8, 1);
+        //public IplImage HoughLines(IplImage src)
+        //{
+        //    houline = new IplImage(src.Size, BitDepth.U8, 3);
+        //    canny = new IplImage(src.Size, BitDepth.U8, 1);
 
-            canny = this.CannyEdge(this.Binary(src));
-            Cv.CvtColor(canny, houline, ColorConversion.GrayToBgr);
+        //    canny = this.CannyEdge(this.Binary(src));
+        //    Cv.CvtColor(canny, houline, ColorConversion.GrayToBgr);
 
-            CvMemStorage Storage = new CvMemStorage();
-            CvSeq lines = canny.HoughLines2(Storage, HoughLinesMethod.Standard, 1, Math.PI / 180, 50, 0, 0);
+        //    CvMemStorage Storage = new CvMemStorage();
+        //    CvSeq lines = canny.HoughLines2(Storage, HoughLinesMethod.Standard, 1, Math.PI / 180, 50, 0, 0);
 
-            for (int i = 0; i < Math.Min(lines.Total, 3); i++)
-            {
-                CvLineSegmentPolar element = lines.GetSeqElem<CvLineSegmentPolar>(i).Value;
+        //    for (int i = 0; i < Math.Min(lines.Total, 3); i++)
+        //    {
+        //        CvLineSegmentPolar element = lines.GetSeqElem<CvLineSegmentPolar>(i).Value;
 
-                double r = element.Rho;
-                double theta = element.Theta;
+        //        double r = element.Rho;
+        //        double theta = element.Theta;
 
-                m_fResultTilt = theta * 180 / Math.PI;
-                if (m_fResultTilt >= 90) m_fResultTilt -= 90;
-                if (m_fResultTilt >= 180) m_fResultTilt -= 180;
-                if (m_fResultTilt >= 270) m_fResultTilt -= 270;
-                if (m_fResultTilt >= 360) m_fResultTilt -= 360;
+        //        m_fResultTilt = theta * 180 / Math.PI;
+        //        if (m_fResultTilt >= 90) m_fResultTilt -= 90;
+        //        if (m_fResultTilt >= 180) m_fResultTilt -= 180;
+        //        if (m_fResultTilt >= 270) m_fResultTilt -= 270;
+        //        if (m_fResultTilt >= 360) m_fResultTilt -= 360;
 
-                if (m_fResultTilt > 45) m_fResultTilt = Math.Abs(m_fResultTilt - 90); 
+        //        if (m_fResultTilt > 45) m_fResultTilt = Math.Abs(m_fResultTilt - 90); 
 
-                double a = Math.Cos(theta);
-                double b = Math.Sin(theta);
-                double x0 = r * a;
-                double y0 = r * b;
-                int scale = src.Size.Width + src.Size.Height;
+        //        double a = Math.Cos(theta);
+        //        double b = Math.Sin(theta);
+        //        double x0 = r * a;
+        //        double y0 = r * b;
+        //        int scale = src.Size.Width + src.Size.Height;
 
-                CvPoint pt1 = new CvPoint(Convert.ToInt32(x0 - scale * b), Convert.ToInt32(y0 + scale * a));
-                CvPoint pt2 = new CvPoint(Convert.ToInt32(x0 + scale * b), Convert.ToInt32(y0 - scale * a));
+        //        CvPoint pt1 = new CvPoint(Convert.ToInt32(x0 - scale * b), Convert.ToInt32(y0 + scale * a));
+        //        CvPoint pt2 = new CvPoint(Convert.ToInt32(x0 + scale * b), Convert.ToInt32(y0 - scale * a));
 
-                houline.Circle(new CvPoint((int)x0, (int)y0), 5, CvColor.Yellow, -1);
-                houline.Line(pt1, pt2, CvColor.Red, 1, LineType.AntiAlias);
-            }
-            return houline;
-        }
+        //        houline.Circle(new CvPoint((int)x0, (int)y0), 5, CvColor.Yellow, -1);
+        //        houline.Line(pt1, pt2, CvColor.Red, 1, LineType.AntiAlias);
+        //    }
+        //    return houline;
+        //}
 
         public void Dispose()
         {
-            if (bin != null) Cv.ReleaseImage(bin);
-            if (canny != null) Cv.ReleaseImage(canny);
-            if (houline != null) Cv.ReleaseImage(houline);
+            //if (bin != null) Cv.ReleaseImage(bin);
+            //if (canny != null) Cv.ReleaseImage(canny);
+            //if (houline != null) Cv.ReleaseImage(houline);
         }
 
 

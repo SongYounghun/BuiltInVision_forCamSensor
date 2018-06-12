@@ -100,8 +100,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 if (resultType == ProcessTemplateMatch.matchResultType.OK)
                 {
                     pictureBox_match_result.Image = BitmapConverter.ToBitmap(m_cvData.GetProcessTeplateMatch().GetIPLImageTemplateResult());
-                    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);
-                    textBox_result_tilt.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().ResultTilt);
+                    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);                    
                     
                     m_visionControl.ProcessingImageViewer.RefreshImage();
 
@@ -110,15 +109,13 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 }
                 else if (resultType == ProcessTemplateMatch.matchResultType.LowScore)
                 {
-                    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);
-                    textBox_result_tilt.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().ResultTilt);
+                    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);                    
                     MessageBox.Show("Low template match score.");
                 }
                 else if (resultType == ProcessTemplateMatch.matchResultType.Shift)
                 {
                     pictureBox_match_result.Image = BitmapConverter.ToBitmap(m_cvData.GetProcessTeplateMatch().GetIPLImageTemplateResult());
-                    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);
-                    textBox_result_tilt.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().ResultTilt);
+                    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);                    
                     m_visionControl.ProcessingImageViewer.RefreshImage();
 
                     //m_visionControl.ProcessingImageViewer.Show();
@@ -174,6 +171,15 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
             textBox_target_offsetX.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().TartgetOffsetPosition.X);
             textBox_target_offsetY.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().TartgetOffsetPosition.Y);
+        }
+
+        private void GetRoiRegion_forInspRange()
+        {
+            Rectangle roi = m_visionControl.ProcessingImageViewer.ROIRegion;
+            textBox_insp_x.Text = roi.X.ToString();
+            textBox_insp_y.Text = roi.Y.ToString();
+            textBox_insp_w.Text = roi.Width.ToString();
+            textBox_insp_h.Text = roi.Height.ToString();
         }
 
         private void button_button_targetPos_set_toView_Click(object sender, EventArgs e)
@@ -301,33 +307,33 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
         {
             try
             {
-                m_cvData.ResetResultImage();
-                m_cvData.ResetProcessImage();
+                //m_cvData.ResetResultImage();
+                //m_cvData.ResetProcessImage();
 
-                ProcessTemplateMatch.matchResultType resultType = m_cvData.GetProcessTeplateMatch().ExcuteHoughLine();
-                if (resultType == ProcessTemplateMatch.matchResultType.OK)
-                {
-                    pictureBox_match_result.Image = BitmapConverter.ToBitmap(m_cvData.GetProcessTeplateMatch().GetIPLImageTemplateResult());
-                    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);
-                    textBox_result_tilt.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().ResultTilt);
+                //ProcessTemplateMatch.matchResultType resultType = m_cvData.GetProcessTeplateMatch().ExcuteHoughLine();
+                //if (resultType == ProcessTemplateMatch.matchResultType.OK)
+                //{
+                //    pictureBox_match_result.Image = BitmapConverter.ToBitmap(m_cvData.GetProcessTeplateMatch().GetIPLImageTemplateResult());
+                //    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);
+                //    textBox_result_tilt.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().ResultTilt);
 
-                    m_visionControl.ProcessingImageViewer.RefreshImage();
+                //    m_visionControl.ProcessingImageViewer.RefreshImage();
 
-                    m_visionControl.ProcessingImageViewer.Show();
-                    m_visionControl.ProcessingImageViewer.Focus();
-                }               
-                else if (resultType == ProcessTemplateMatch.matchResultType.Tilt)
-                {
-                    pictureBox_match_result.Image = BitmapConverter.ToBitmap(m_cvData.GetProcessTeplateMatch().GetIPLImageTemplateResult());
-                    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);
-                    textBox_result_tilt.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().ResultTilt);
-                    m_visionControl.ProcessingImageViewer.RefreshImage();
+                //    m_visionControl.ProcessingImageViewer.Show();
+                //    m_visionControl.ProcessingImageViewer.Focus();
+                //}               
+                //else if (resultType == ProcessTemplateMatch.matchResultType.Tilt)
+                //{
+                //    pictureBox_match_result.Image = BitmapConverter.ToBitmap(m_cvData.GetProcessTeplateMatch().GetIPLImageTemplateResult());
+                //    textBox_match_score.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().MatchScore);
+                //    textBox_result_tilt.Text = String.Format("{0}", m_cvData.GetProcessTeplateMatch().ResultTilt);
+                //    m_visionControl.ProcessingImageViewer.RefreshImage();
 
-                    m_visionControl.ProcessingImageViewer.Show();
-                    m_visionControl.ProcessingImageViewer.Focus();
+                //    m_visionControl.ProcessingImageViewer.Show();
+                //    m_visionControl.ProcessingImageViewer.Focus();
 
-                    MessageBox.Show("Tilt Error.");
-                }
+                //    MessageBox.Show("Tilt Error.");
+                //}
             }
             catch (Exception E)
             {
@@ -347,7 +353,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
                 //m_cvData.GetProcessTeplateMatch().ScoreThreshold = Convert.ToDouble(textBox_threshold_socre.Text);
 
-                MessageBox.Show("Copleted apply.");
+                MessageBox.Show("Completed apply.");
 
             }
             catch (Exception E)
@@ -360,6 +366,19 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
         {
             ImageProcessViewer viewer = new ImageProcessViewer(m_cvData.GetProcessTeplateMatch().GetIPLImageTemplateResult());
             viewer.ShowDialog();
+        }
+
+        private void button_getfrom_insp_roi_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GetRoiRegion_forInspRange();
+                button_apply_Click(this, EventArgs.Empty);
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message);
+            }
         }
     }
 }
