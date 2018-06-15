@@ -87,7 +87,7 @@ namespace BuiltInVision.LaserVision.DialogLaserVision
 
         private void ImageProcess_HoughLine_Load(object sender, EventArgs e)
         {
-
+            m_visionControl.ChangedVisionIndex += new EventHandler(onChangedVisionIndex);
         }
 
         private void button_exec_hough_line_Click(object sender, EventArgs e)
@@ -139,6 +139,11 @@ namespace BuiltInVision.LaserVision.DialogLaserVision
         {
             ImageProcessViewer viewer = new ImageProcessViewer(m_cvData.GetProcessHoughLine().GetIPLImageHoughResult());
             viewer.ShowDialog();
+        }
+
+        private void onChangedVisionIndex(object sender, EventArgs e)
+        {
+            m_cvData = OpenCVData.GetInstance();
         }
     }
 }

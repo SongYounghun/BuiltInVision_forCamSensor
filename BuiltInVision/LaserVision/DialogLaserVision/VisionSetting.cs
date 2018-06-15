@@ -243,6 +243,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             try
             {
                 m_cvData = OpenCVData.GetInstance(comboBox_vis_index.SelectedIndex);
+                comboBox_cam_num.SelectedIndex = m_cvData.GetCameraNum();
                 propertyGrid_vision_setting.SelectedObject = m_cvData;
             }
             catch (Exception E)

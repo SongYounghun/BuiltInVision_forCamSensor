@@ -125,6 +125,8 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 viewportLayout1.ZoomFit();
                 viewportLayout1.ToolBar.Buttons[3].Pushed = true;
                 viewportLayout1.ActionMode = devDept.Eyeshot.actionType.Pan;
+
+                m_laserVisionControl.ChangedVisionIndex += new EventHandler(onChangedVisionIndex);
             }
             catch (Exception E)
             {
@@ -349,6 +351,8 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
             if (Visible)
             {
+                m_cvData = OpenCVData.GetInstance();
+
                 IplImage img = null;
                 Picture picEnt = (Picture)viewportLayout1.Entities[0];
                 switch (m_viewMode)
@@ -581,6 +585,12 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
         private void button_position_offset_clear_Click(object sender, EventArgs e)
         {
             ResetTemplateOffsetPosition();
+        }
+
+        public void onChangedVisionIndex(object sender, EventArgs e)
+        {
+            m_cvData = OpenCVData.GetInstance();
+            RefreshImage();
         }
     }
 }

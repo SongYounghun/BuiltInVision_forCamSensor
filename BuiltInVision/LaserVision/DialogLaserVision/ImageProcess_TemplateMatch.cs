@@ -208,7 +208,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
         private void ImageProcess_TemplateMatch_Load(object sender, EventArgs e)
         {
-            
+            m_visionControl.ChangedVisionIndex += new EventHandler(onChangedVisionIndex);
         }
 
         private void ImageProcess_TemplateMatch_VisibleChanged(object sender, EventArgs e)
@@ -301,6 +301,11 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             {
                 MessageBox.Show(E.Message);
             }
+        }
+
+        private void onChangedVisionIndex(object sender, EventArgs e)
+        {
+            m_cvData = OpenCVData.GetInstance();
         }
     }
 }

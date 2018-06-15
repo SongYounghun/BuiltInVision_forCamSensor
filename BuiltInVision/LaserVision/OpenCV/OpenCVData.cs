@@ -47,12 +47,15 @@ namespace GalvoScanner.LaserVision.OpenCV
                 }                
             }
         }
+        private static int m_nListIndex = -1;
         public static OpenCVData GetInstance(int listIndex)
         {
             if (m_listCvData != null && m_listCvData.Count > 0 && listIndex < m_listCvData.Count && listIndex >= 0)
             {
+                m_nListIndex = listIndex;
                 return m_listCvData[listIndex];
             }
+            m_nListIndex = -1;
             return null;
         }
         public static int GetOpencvDataCount()
@@ -69,12 +72,18 @@ namespace GalvoScanner.LaserVision.OpenCV
         private static OpenCVData m_cvData = null;
         public static OpenCVData GetInstance()
         {
-            if (m_cvData == null)
-            {
-                m_cvData = new OpenCVData();
-            }
+            //if (m_cvData == null)
+            //{
+            //    m_cvData = new OpenCVData();
+            //}
 
-            return m_cvData;
+            //return m_cvData;
+            
+            if (m_nListIndex != -1)
+            {
+                return m_listCvData[m_nListIndex];
+            }
+            return null;
         }
 
         public enum modeType { BuiltInVision = 0, GeneralArea, LineScan, AreaTile };
@@ -1076,6 +1085,8 @@ namespace GalvoScanner.LaserVision.OpenCV
                 m_processTempMatch.SaveRecipeINI(path, ini);
                 m_processFitCircle.SaveRecipeINI(path, ini);
                 m_processHoughLine.SaveRecipeINI(path, ini);
+
+                m_strRecipePath = path;
                 
             }
             catch (Exception E)
@@ -1121,7 +1132,7 @@ namespace GalvoScanner.LaserVision.OpenCV
                     m_processFitCircle.LoadRecipeINI(path, ini);
                     m_processHoughLine.LoadRecipeINI(path, ini);
 
-                    m_cvData.m_strRecipePath = path;
+                    m_strRecipePath = path;
 
                     return true;
                 }

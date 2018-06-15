@@ -118,6 +118,7 @@ namespace BuiltInVision
                     }
 
                     m_VisionSetting.ChangedVisionSetting += new EventHandler(ChangedVisionSetting);
+                    m_visionControl.ChangedVisionIndex += new EventHandler(onChangedVisionIndex);
                 }
 
             }
@@ -126,7 +127,7 @@ namespace BuiltInVision
         private void GrabFromVisionControl(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 if (m_cvData != null && m_cvData.GetUseVision())
                 {
                     //if (m_LightControl == null)
@@ -378,5 +379,9 @@ namespace BuiltInVision
             }
         }
 
+        private void onChangedVisionIndex(object sender, EventArgs e)
+        {
+            m_cvData = OpenCVData.GetInstance();
+        }
     }
 }

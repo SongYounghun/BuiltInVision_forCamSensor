@@ -37,6 +37,8 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             {
                 cbColorType.Items.Add(type);
             }
+
+            m_visionControl.ChangedVisionIndex += new EventHandler(onChangedVisionIndex);
         }
 
         private void ImageProcess_FitCircle_VisibleChanged(object sender, EventArgs e)
@@ -273,6 +275,11 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 MessageBox.Show(E.ToString());
                 throw;
             }
+        }
+
+        private void onChangedVisionIndex(object sender, EventArgs e)
+        {
+            m_cvData = OpenCVData.GetInstance();
         }
     }
 }

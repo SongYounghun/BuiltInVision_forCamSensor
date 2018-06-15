@@ -97,6 +97,15 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             }
         }
 
+        public event EventHandler ChangedVisionIndex;
+        public void ChangeVisIndex()
+        {
+            if (this.ChangedVisionIndex != null)
+            {
+                ChangedVisionIndex(this, EventArgs.Empty);
+            }
+        }
+
         public CheckBox VisionVisibleCheckBox
         {
             get { return checkBox_vision_visible; }
@@ -415,17 +424,27 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
             if (m_processingImageViewer == null)
             {
-                m_processingImageViewer = new ImageProcessingViewer(this, ImageProcessingViewer.viewMode.Processing);
+                m_processingImageViewer = new ImageProcessingViewer(this, ImageProcessingViewer.viewMode.Processing);                
             }
 
             if (m_resultImageViewer == null)
             {
-                m_resultImageViewer = new ImageProcessingViewer(this, ImageProcessingViewer.viewMode.Result);
+                m_resultImageViewer = new ImageProcessingViewer(this, ImageProcessingViewer.viewMode.Result);                
             }
 
             if (m_liveImageViewer == null)
             {
-                m_liveImageViewer = new ImageProcessingViewer(this, ImageProcessingViewer.viewMode.Live);
+                m_liveImageViewer = new ImageProcessingViewer(this, ImageProcessingViewer.viewMode.Live);                
+            }
+
+            int visionCnt = OpenCVData.GetOpencvDataCount();
+            for (int i = 0; i < visionCnt; i++)
+            {
+                comboBox_vision_num.Items.Add(i);
+            }
+            if (visionCnt > 0)
+            {
+                comboBox_vision_num.SelectedIndex = 0;
             }
 
             UpdateData();
@@ -438,7 +457,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 if (isLoad)
                 {
                     List<GalvoScanner.LaserVision.OpenCV.OpenCVData.processType> listProcess = m_cvData.GetListProcess();
-                    if (listProcess != null && listProcess.Count > 0)
+                    if (listProcess != null)
                     {
                         listView_image_process.Items.Clear();
                         for (int i = 0; i < listProcess.Count; i++)
@@ -471,31 +490,31 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
         {
             SaveFileDialog mySaveFileDialog = new SaveFileDialog();
 
-            mySaveFileDialog.Filter = "BMP file(*.bmp)|*.bmp|AllFile(*.*)|*.*";
-            mySaveFileDialog.Title = "Load bitmap file";            
-            mySaveFileDialog.FilterIndex = 2;
-            mySaveFileDialog.RestoreDirectory = true;
+            //mySaveFileDialog.Filter = "BMP file(*.bmp)|*.bmp|AllFile(*.*)|*.*";
+            //mySaveFileDialog.Title = "Load bitmap file";            
+            //mySaveFileDialog.FilterIndex = 2;
+            //mySaveFileDialog.RestoreDirectory = true;
 
-            if (mySaveFileDialog.ShowDialog() == DialogResult.OK)
-            {
+            //if (mySaveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
 
-                switch (mySaveFileDialog.FilterIndex)
-                {
+            //    switch (mySaveFileDialog.FilterIndex)
+            //    {
 
-                    case 1: viewportLayout1.WriteToFileRaster(2, mySaveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
-                        break;
-                    case 2: viewportLayout1.WriteToFileRaster(2, mySaveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                        break;
-                    case 3: viewportLayout1.WriteToFileRaster(2, mySaveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Wmf);
-                        break;
-                    case 4: viewportLayout1.WriteToFileRaster(2, mySaveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Emf);
-                        break;
+            //        case 1: viewportLayout1.WriteToFileRaster(2, mySaveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+            //            break;
+            //        case 2: viewportLayout1.WriteToFileRaster(2, mySaveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
+            //            break;
+            //        case 3: viewportLayout1.WriteToFileRaster(2, mySaveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Wmf);
+            //            break;
+            //        case 4: viewportLayout1.WriteToFileRaster(2, mySaveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Emf);
+            //            break;
 
-                }
+            //    }
 
-            }
-            /*
-            StopContinuousGrab();
+            //}
+            
+            //StopContinuousGrab();
 
             SaveFileDialog saveFile = new SaveFileDialog();
             saveFile.Filter = "BMP file(*.bmp)|*.bmp|AllFile(*.*)|*.*";
@@ -510,7 +529,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 {
                     MessageBox.Show(StringLib.Msg_VisionSaveImageFail);
                 }
-            }*/
+            }
         }
 
         private void button_file_loadImage_Click(object sender, EventArgs e)
@@ -1009,7 +1028,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                     UpdateData(false);
                     m_cvData.SaveRecipeINI(saveFile.FileName);
 
-                    textBox_recipe_path.Text = m_cvData.GetRecipePath();
+                    UpdateData();
                 }
             }
             catch (Exception E)
@@ -1028,7 +1047,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 if (openFile.ShowDialog() == DialogResult.OK)
                 {
                     if (m_cvData.LoadRecipeINI(openFile.FileName))
-                    {
+                    {                        
                         UpdateData();
                         if (m_templateMatch != null)
                         {
@@ -1041,9 +1060,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                         if (m_houghLine != null)
                         {
                             m_houghLine.UpdateData();
-                        }
-
-                        textBox_recipe_path.Text = m_cvData.GetRecipePath();
+                        }                        
                     }              
                 }
             }
@@ -1140,6 +1157,37 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
         private void button_new_vision_recipe_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox_vision_num_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int selected = comboBox_vision_num.SelectedIndex;
+                if (selected != -1)
+                {
+                    m_cvData = OpenCVData.GetInstance(selected);
+                    UpdateData();
+                    if (m_templateMatch != null)
+                    {
+                        m_templateMatch.UpdateData();
+                    }
+                    if (m_fitCircle != null)
+                    {
+                        m_fitCircle.UpdateData();
+                    }
+                    if (m_houghLine != null)
+                    {
+                        m_houghLine.UpdateData();
+                    }
+
+                    ChangeVisIndex();
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message);
+            }
         }
 
     }
