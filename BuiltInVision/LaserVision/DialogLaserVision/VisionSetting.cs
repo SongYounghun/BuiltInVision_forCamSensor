@@ -173,24 +173,24 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 return;
             }
 
-            if (!m_bIsLoading)
-            {
-                if (comboBox_cam_num.SelectedIndex != m_cvData.GetCameraNum())
-                {
-                    if (MessageBox.Show(StringLib.Msg_VisionSettingChange, Text, MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-                    {
-                        m_cvData.SetCameraNum(comboBox_cam_num.SelectedIndex);
-                        m_cvData.GetCaptureProperty();
-                        SetControlValue();
-                    }
-                    else
-                    {
-                        m_bIsCamNotChange = true;
-                        comboBox_cam_num.SelectedIndex = m_cvData.GetCameraNum();
-                    }
-                }                
-            }
-            else
+            //if (!m_bIsLoading)
+            //{
+            //    if (comboBox_cam_num.SelectedIndex != m_cvData.GetCameraNum())
+            //    {
+            //        if (MessageBox.Show(StringLib.Msg_VisionSettingChange, Text, MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            //        {
+            //            m_cvData.SetCameraNum(comboBox_cam_num.SelectedIndex);
+            //            m_cvData.GetCaptureProperty();
+            //            SetControlValue();
+            //        }
+            //        else
+            //        {
+            //            m_bIsCamNotChange = true;
+            //            comboBox_cam_num.SelectedIndex = m_cvData.GetCameraNum();
+            //        }
+            //    }                
+            //}
+            //else
             {
                 m_cvData.SetCameraNum(comboBox_cam_num.SelectedIndex);
                 SetControlValue();
