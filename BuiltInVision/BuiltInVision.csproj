@@ -28,16 +28,16 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;X86</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -52,6 +52,25 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>camera-endoscopic.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;X64</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CyUSB, Version=3.4.7.0, Culture=neutral, PublicKeyToken=01f1d2b6c851ae92, processorArchitecture=MSIL">
@@ -125,8 +144,33 @@
     <Compile Include="CadSrc\Snapping.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Common\AjinMotion_IO\AXL\AXD.cs" />
+    <Compile Include="Common\AjinMotion_IO\AXL\AXDev.cs" />
+    <Compile Include="Common\AjinMotion_IO\AXL\AXHD.cs" />
+    <Compile Include="Common\AjinMotion_IO\AXL\AXHS.cs" />
+    <Compile Include="Common\AjinMotion_IO\AXL\AXL.cs" />
+    <Compile Include="Common\AjinMotion_IO\AXL\AXM.cs" />
+    <Compile Include="Common\DefPath.cs" />
+    <Compile Include="Common\DeltaTau\PowerPmac.cs" />
+    <Compile Include="Common\DeltaTau\P_PMAC.cs" />
     <Compile Include="Common\IniFile.cs" />
     <Compile Include="Common\LogFile.cs" />
+    <Compile Include="IO\DialogIO\IOControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IO\DialogIO\IOControl.Designer.cs">
+      <DependentUpon>IOControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IO\DialogIO\IONameSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IO\DialogIO\IONameSetting.Designer.cs">
+      <DependentUpon>IONameSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IO\DIOAjin.cs" />
+    <Compile Include="IO\DIOBase.cs" />
+    <Compile Include="IO\DIOPmac.cs" />
+    <Compile Include="IO\IDIO.cs" />
     <Compile Include="LaserVision\DialogLaserVision\GridSettingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,6 +254,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StringLib.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="IO\DialogIO\IOControl.resx">
+      <DependentUpon>IOControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IO\DialogIO\IONameSetting.resx">
+      <DependentUpon>IONameSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LaserVision\DialogLaserVision\GridSettingForm.resx">
       <DependentUpon>GridSettingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -256,17 +306,42 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StringLib.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Config\InitialMotionSetup.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Config\InitVis_ref.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="DLL\Eyeshot_cad\x64\AcIdViewObj_4.02_11.tx" />
-    <None Include="DLL\Eyeshot_cad\x64\ModelerGeometry_4.02_11.tx" />
-    <None Include="DLL\Eyeshot_cad\x64\RecomputeDimBlock_4.02_11.tx" />
-    <None Include="DLL\Eyeshot_cad\x64\TD_DynBlocks_4.02_11.tx" />
-    <None Include="DLL\Eyeshot_cad\x86\AcIdViewObj_4.02_11.tx" />
-    <None Include="DLL\Eyeshot_cad\x86\ModelerGeometry_4.02_11.tx" />
-    <None Include="DLL\Eyeshot_cad\x86\RecomputeDimBlock_4.02_11.tx" />
-    <None Include="DLL\Eyeshot_cad\x86\TD_DynBlocks_4.02_11.tx" />
+    <None Include="DLL\DeltaTau\PowerPmac32.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DLL\DeltaTau\PowerPmac64.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DLL\Eyeshot_cad\x64\AcIdViewObj_4.02_11.tx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DLL\Eyeshot_cad\x64\ModelerGeometry_4.02_11.tx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DLL\Eyeshot_cad\x64\RecomputeDimBlock_4.02_11.tx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DLL\Eyeshot_cad\x64\TD_DynBlocks_4.02_11.tx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DLL\Eyeshot_cad\x86\AcIdViewObj_4.02_11.tx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DLL\Eyeshot_cad\x86\ModelerGeometry_4.02_11.tx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DLL\Eyeshot_cad\x86\RecomputeDimBlock_4.02_11.tx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DLL\Eyeshot_cad\x86\TD_DynBlocks_4.02_11.tx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.Blob.dll.config" />
     <None Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.CPlusPlus.dll.config" />
     <None Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.dll.config" />
@@ -295,53 +370,160 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="camera-endoscopic.ico" />
-    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Control.v9.dll" />
+    <Content Include="DLL\Ajin\32Bit\AXL.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Ajin\32Bit\EzBasicAxl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Ajin\64Bit\AXL.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Ajin\64Bit\EzBasicAxl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\DeltaTau\PowerPmac32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\DeltaTau\PowerPmac64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Control.v9.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Control.v9.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Dicom.v9.dll" />
-    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Dicom.v9.xml" />
-    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Kinect.v9.dll" />
-    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Kinect.v9.xml" />
-    <Content Include="DLL\Eyeshot_cad\devDept.Geometry.v9.dll" />
-    <Content Include="DLL\Eyeshot_cad\devDept.Geometry.v9.xml" />
-    <Content Include="DLL\Eyeshot_cad\devDept.Graphics.v9.dll" />
-    <Content Include="DLL\Eyeshot_cad\devDept.Graphics.v9.xml" />
-    <Content Include="DLL\Eyeshot_cad\x64\CopyModules.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\devDept.Eyeshot.Control.Wpf.x64.v9.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\devDept.Eyeshot.Control.x64.v9.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\sisl.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_AcisBuilder_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_Alloc_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_BrepRenderer_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_Br_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_DbRoot_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_Db_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_Ge_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_Gi_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_Gs_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_MgdBrep_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_Mgd_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_Root_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x64\TD_SpatialIndex_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\CopyModules.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\devDept.Eyeshot.Control.Wpf.x86.v9.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\devDept.Eyeshot.Control.x86.v9.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\sisl.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_AcisBuilder_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_Alloc_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_BrepRenderer_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_Br_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_DbRoot_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_Db_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_Ge_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_Gi_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_Gs_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_MgdBrep_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_Mgd_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_Root_4.02_11.dll" />
-    <Content Include="DLL\Eyeshot_cad\x86\TD_SpatialIndex_4.02_11.dll" />
-    <Content Include="DLL\Illumination\CyUSB.dll" />
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Dicom.v9.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Dicom.v9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Kinect.v9.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\devDept.Eyeshot.Kinect.v9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\devDept.Geometry.v9.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\devDept.Geometry.v9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\devDept.Graphics.v9.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\devDept.Graphics.v9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\CopyModules.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\devDept.Eyeshot.Control.Wpf.x64.v9.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\devDept.Eyeshot.Control.x64.v9.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\sisl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_AcisBuilder_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Alloc_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_BrepRenderer_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Br_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_DbRoot_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Db_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Ge_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Gi_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Gs_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_MgdBrep_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Mgd_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_Root_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x64\TD_SpatialIndex_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\CopyModules.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\devDept.Eyeshot.Control.Wpf.x86.v9.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\devDept.Eyeshot.Control.x86.v9.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\sisl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_AcisBuilder_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Alloc_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_BrepRenderer_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Br_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_DbRoot_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Db_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Ge_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Gi_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Gs_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_MgdBrep_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Mgd_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_Root_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Eyeshot_cad\x86\TD_SpatialIndex_4.02_11.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLL\Illumination\CyUSB.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="DLL\OpenCVSharp-2.4.10-x64\LICENSE.txt" />
     <Content Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.Blob.dll" />
     <Content Include="DLL\OpenCVSharp-2.4.10-x64\OpenCvSharp.CPlusPlus.dll" />

@@ -44,6 +44,10 @@ namespace GalvoScanner.LaserVision.OpenCV
                         OpenCVData cvData = new OpenCVData();
                         m_listCvData.Add(cvData);
                     }
+                    if (count > 0)
+                    {
+                        m_nListIndex = 0;
+                    }
                 }                
             }
         }

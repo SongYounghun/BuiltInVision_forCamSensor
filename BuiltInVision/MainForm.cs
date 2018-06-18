@@ -1,6 +1,9 @@
 ﻿using devDept.Eyeshot;
 using devDept.Eyeshot.Entities;
 using devDept.Geometry;
+using GalvoScanner.Common;
+using GalvoScanner.IO;
+using GalvoScanner.IO.DialogIO;
 using GalvoScanner.LaserCanvas.DialogLaserGalvo;
 using GalvoScanner.LaserVision.DialogLaserVision;
 using GalvoScanner.LaserVision.OpenCV;
@@ -26,15 +29,18 @@ namespace BuiltInVision
         LaserVisionControl m_visionControl = null;
         //LightControl m_LightControl = null;
         VisionSetting m_VisionSetting = null;
+        IOControl m_ioControl = null;
 
         public MainForm()
         {
             InitializeComponent();
             viewportLayout1.Unlock("EYEULT-9VQS-QUNSX-RM12U-SH0LL");
 
-            OpenCVData.CreateOpenCvDataList();
-            m_cvData = OpenCVData.GetInstance(0);
-            //m_cvData = OpenCVData.GetInstance();
+            OpenCVData.CreateOpenCvDataList();            
+            m_cvData = OpenCVData.GetInstance();
+
+            DIOBase.ReadIoINI(DefPath.MotionSetting);
+
             InitialVisionCtrl();
         }
 
@@ -120,7 +126,21 @@ namespace BuiltInVision
                     m_VisionSetting.ChangedVisionSetting += new EventHandler(ChangedVisionSetting);
                     m_visionControl.ChangedVisionIndex += new EventHandler(onChangedVisionIndex);
                 }
+            }
 
+            IDIO io = DIOBase.GetInstanceInterface();
+            if (io == null)
+            {
+                iOControlToolStripMenuItem.Visible = false;
+            }
+            else
+            {
+                if (m_ioControl == null)
+                {
+                    m_ioControl = new IOControl();
+                    m_ioControl.Show();
+                    m_ioControl.Hide();
+                }
             }
         }
 
@@ -382,6 +402,17 @@ namespace BuiltInVision
         private void onChangedVisionIndex(object sender, EventArgs e)
         {
             m_cvData = OpenCVData.GetInstance();
+        }
+
+        private void iOControlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_ioControl == null)
+            {
+                m_ioControl = new IOControl();
+            }
+
+            m_ioControl.Show();
+            m_ioControl.Focus();
         }
     }
 }

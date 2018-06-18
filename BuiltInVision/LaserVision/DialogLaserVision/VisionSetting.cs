@@ -45,9 +45,11 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 comboBox_cam_num.Items.Add(i);
             }
 
-            if (comboBox_cam_num.Items.Count > 0)
+            int visionCnt = OpenCVData.GetOpencvDataCount();
+            for (int i = 0; i < visionCnt; i++)
             {
-                if (m_cvData.LoadSettingINI(Application.StartupPath + "\\VisionSetting.ini"))
+                m_cvData = OpenCVData.GetInstance(i);
+                if (m_cvData.LoadSettingINI(Application.StartupPath + "\\VisionSetting_" + i + ".ini"))
                 {
                     if (comboBox_cam_num.Items.Count > m_cvData.GetCameraNum())
                     {
@@ -62,7 +64,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                         {
                             StartiVisionInit();
                         }
-                        
+
                     }
                     else
                     {
@@ -74,8 +76,40 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                 {
                     comboBox_cam_num.SelectedIndex = 0;
                     m_cvData.SetCameraNum(comboBox_cam_num.SelectedIndex);
-                }                
+                }
             }
+
+                //if (comboBox_cam_num.Items.Count > 0)
+                //{
+                //    if (m_cvData.LoadSettingINI(Application.StartupPath + "\\VisionSetting.ini"))
+                //    {
+                //        if (comboBox_cam_num.Items.Count > m_cvData.GetCameraNum())
+                //        {
+                //            m_cvData.SetCameraNum(m_cvData.GetCameraNum());
+
+                //            m_bIsCamNotChange = true;
+                //            comboBox_cam_num.SelectedIndex = m_cvData.GetCameraNum();
+                //            checkBox_use_vision.Checked = m_cvData.GetUseVision();
+                //            propertyGrid_vision_setting.SelectedObject = m_cvData;
+
+                //            if (m_cvData.GetUseVision())
+                //            {
+                //                StartiVisionInit();
+                //            }
+
+                //        }
+                //        else
+                //        {
+                //            comboBox_cam_num.SelectedIndex = 0;
+                //            m_cvData.SetCameraNum(comboBox_cam_num.SelectedIndex);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        comboBox_cam_num.SelectedIndex = 0;
+                //        m_cvData.SetCameraNum(comboBox_cam_num.SelectedIndex);
+                //    }
+                //}
 
             try
             {
@@ -125,13 +159,15 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
                 ChangeVisionSettingEvent();
 
-                m_cvData.SaveSettingINI(Application.StartupPath + "\\VisionSetting.ini");
+                if (comboBox_vis_index.SelectedIndex != -1)
+                {
+                    m_cvData.SaveSettingINI(Application.StartupPath + "\\VisionSetting_" + comboBox_vis_index.SelectedIndex + ".ini");
+                }
             }
             catch (Exception E)
             {
                 MessageBox.Show(E.ToString());
-            }
-            
+            }            
         }
 
         private void VisionSetting_FormClosing(object sender, FormClosingEventArgs e)
