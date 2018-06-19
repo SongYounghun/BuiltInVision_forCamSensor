@@ -458,6 +458,11 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
                                 Hide();
                                 return;
                             }
+                            else
+                            {
+                                m_cvData.ResetResultImage();
+                                img = m_cvData.GetIPLImageResult();
+                            }
 
                             //if (m_cvData.GetResultPosition().X != -1 && m_cvData.GetResultPosition().Y != -1)
                             //{

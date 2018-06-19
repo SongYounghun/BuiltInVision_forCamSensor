@@ -30,6 +30,7 @@ namespace BuiltInVision
         //LightControl m_LightControl = null;
         VisionSetting m_VisionSetting = null;
         IOControl m_ioControl = null;
+        SensingInterface m_sensingInterface = null;
 
         public MainForm()
         {
@@ -141,6 +142,11 @@ namespace BuiltInVision
                     m_ioControl.Show();
                     m_ioControl.Hide();
                 }
+            }
+
+            if (m_sensingInterface == null)
+            {
+                m_sensingInterface = new SensingInterface();
             }
         }
 
@@ -397,6 +403,11 @@ namespace BuiltInVision
             {
                 m_visionControl.StopContinuousGrab();
             }
+
+            if (m_sensingInterface != null)
+            {
+                m_sensingInterface.AllStopProc();
+            }
         }
 
         private void onChangedVisionIndex(object sender, EventArgs e)
@@ -413,6 +424,17 @@ namespace BuiltInVision
 
             m_ioControl.Show();
             m_ioControl.Focus();
+        }
+
+        private void iOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_sensingInterface == null)
+            {
+                m_sensingInterface = new SensingInterface();
+            }
+
+            m_sensingInterface.Show();
+            m_sensingInterface.Focus();
         }
     }
 }

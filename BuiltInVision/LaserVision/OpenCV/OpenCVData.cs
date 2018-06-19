@@ -1151,5 +1151,138 @@ namespace GalvoScanner.LaserVision.OpenCV
                 return false;
             }
         }
+
+        private bool m_bIsCancleOnecycle = false;
+        public void OncycleCancel()
+        {
+            m_bIsCancleOnecycle = true;
+        }
+
+        private List<String> m_listError = new List<string>(10);
+        public List<String> GetListError()
+        {
+            return m_listError;
+        }
+        public void AddListError(string error)
+        {
+            if (m_listError.Count > 9)
+            {
+                m_listError.RemoveAt(0);
+            }
+
+            m_listError.Add(error);
+        }
+
+        public bool ProcessOneCycle()
+        {
+            bool isError = false;
+            for (int i = 0; i < m_listProcess.Count; i++)
+            {
+                if (m_bIsCancleOnecycle)
+                    break;
+
+                if (isError)
+                    break;
+
+                switch (m_listProcess[i])
+                {
+                    case processType.GrabToProcess:
+                        {
+                            ResetProcessImage();
+                        }
+                        break;
+
+                    case processType.ProcessToResult:
+                        {
+                            ResetResultImage();
+                        }
+                        break;
+
+                    case OpenCVData.processType.TemplateMatch:
+                        {
+                            if (i > 0 && m_listProcess.Contains(OpenCVData.processType.GrabToProcess))
+                            {
+                                ProcessTemplateMatch.matchResultType result = GetProcessTeplateMatch().ExcuteTemplateMatch();
+                                if (result == ProcessTemplateMatch.matchResultType.LowScore)
+                                {
+                                    AddListError("<Template match> Low score.");
+                                    isError = true;
+                                    break;
+                                }
+                                else if (result == ProcessTemplateMatch.matchResultType.Shift)
+                                {
+                                    AddListError("<Tempate match> Shift error.");
+                                    isError = true;
+                                    break;
+                                }
+                                else if(result == ProcessTemplateMatch.matchResultType.NoTemplateImage)
+                                {
+                                    AddListError("<Tempate match> No template image.");
+                                    isError = true;
+                                    break;
+                                }
+                                else if (result == ProcessTemplateMatch.matchResultType.NoProcessingImage)
+                                {
+                                    AddListError("<Tempate match> No process image.");
+                                    isError = true;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                AddListError("<Tempate match> No process image.");
+                                isError = true;
+                                break;
+                            }
+                        }
+                        break;
+
+                    case OpenCVData.processType.FitCircle:
+                        {
+                            if (i > 0 && m_listProcess.Contains(OpenCVData.processType.GrabToProcess))
+                            {
+                                GetProcessFitCircle().Inspect();
+                            }
+                            else
+                            {
+                                AddListError("<Fit Circle> No process image.");
+                                isError = true;
+                            }
+                        }
+                        break;
+
+                    case OpenCVData.processType.HoughLine:
+                        {
+                            if (i > 0 && m_listProcess.Contains(OpenCVData.processType.GrabToProcess))
+                            {
+                                ProcessHoughLine.houghResultType result = GetProcessHoughLine().ExecuteHoughLines();
+                                if (result == ProcessHoughLine.houghResultType.Tilt)
+                                {
+                                    m_cvData.ResetResultImage();
+                                    AddListError("<Hough Line> Tilt error.");
+                                    isError = true;
+                                }
+                            }
+                            else
+                            {
+                                AddListError("<Hough Line> No process image.");
+                                isError = true;
+                            }
+                        }
+                        break;
+                }
+            }
+
+            m_bIsCancleOnecycle = false;
+
+            if (isError)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

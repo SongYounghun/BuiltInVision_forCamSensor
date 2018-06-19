@@ -57,7 +57,6 @@
             devDept.Eyeshot.ViewCubeIcon viewCubeIcon1 = new devDept.Eyeshot.ViewCubeIcon(devDept.Eyeshot.coordinateSystemPositionType.TopRight, false, System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(43)))), ((int)(((byte)(226))))), true, "FRONT", "BACK", "LEFT", "RIGHT", "TOP", "BOTTOM", System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), 'S', 'N', 'W', 'E', true, System.Drawing.Color.White, System.Drawing.Color.Black, 120, true, true, null, null, null, null, null, null, false);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.viewportLayout1 = new BuiltInVision.DraftingViewportLayout();
             this.tabControl_properties = new System.Windows.Forms.TabControl();
             this.tabPage_vision = new System.Windows.Forms.TabPage();
             this.menuStrip_menu = new System.Windows.Forms.MenuStrip();
@@ -87,18 +86,21 @@
             this.visionSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.gridSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iOControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.mainStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.springToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.iOControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewportLayout1 = new BuiltInVision.DraftingViewportLayout();
+            this.sensingInterfaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.viewportLayout1)).BeginInit();
             this.tabControl_properties.SuspendLayout();
             this.menuStrip_menu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.viewportLayout1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -119,27 +121,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1123, 579);
             this.splitContainer1.SplitterDistance = 791;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // viewportLayout1
-            // 
-            this.viewportLayout1.BoundingBox = boundingBox1;
-            this.viewportLayout1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.viewportLayout1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewportLayout1.gridSnapEnabled = false;
-            this.viewportLayout1.Location = new System.Drawing.Point(0, 0);
-            this.viewportLayout1.Name = "viewportLayout1";
-            this.viewportLayout1.objectSnapEnabled = false;
-            this.viewportLayout1.ProgressBar = progressBar1;
-            this.viewportLayout1.Size = new System.Drawing.Size(791, 579);
-            this.viewportLayout1.TabIndex = 0;
-            this.viewportLayout1.Text = "viewportLayout1";
-            coordinateSystemIcon1.LabelFont = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            viewport1.CoordinateSystemIcon = coordinateSystemIcon1;
-            originSymbol1.LabelFont = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            viewport1.OriginSymbol = originSymbol1;
-            viewport1.ViewCubeIcon = viewCubeIcon1;
-            this.viewportLayout1.Viewports.Add(viewport1);
-            this.viewportLayout1.waitingForSelection = false;
             // 
             // tabControl_properties
             // 
@@ -169,7 +150,8 @@
             this.drawToolsToolStripMenuItem,
             this.selectionToolStripMenuItem,
             this.snappingToolStripMenuItem,
-            this.optionToolStripMenuItem});
+            this.optionToolStripMenuItem,
+            this.sensingInterfaceToolStripMenuItem});
             this.menuStrip_menu.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_menu.Name = "menuStrip_menu";
             this.menuStrip_menu.Size = new System.Drawing.Size(1147, 24);
@@ -388,6 +370,13 @@
             this.gridSettingToolStripMenuItem.Visible = false;
             this.gridSettingToolStripMenuItem.Click += new System.EventHandler(this.gridSettingToolStripMenuItem_Click);
             // 
+            // iOControlToolStripMenuItem
+            // 
+            this.iOControlToolStripMenuItem.Name = "iOControlToolStripMenuItem";
+            this.iOControlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iOControlToolStripMenuItem.Text = "IO Control";
+            this.iOControlToolStripMenuItem.Click += new System.EventHandler(this.iOControlToolStripMenuItem_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -416,12 +405,41 @@
             this.springToolStripStatusLabel.Size = new System.Drawing.Size(558, 17);
             this.springToolStripStatusLabel.Spring = true;
             // 
-            // iOControlToolStripMenuItem
+            // viewportLayout1
             // 
-            this.iOControlToolStripMenuItem.Name = "iOControlToolStripMenuItem";
-            this.iOControlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.iOControlToolStripMenuItem.Text = "IO Control";
-            this.iOControlToolStripMenuItem.Click += new System.EventHandler(this.iOControlToolStripMenuItem_Click);
+            this.viewportLayout1.BoundingBox = boundingBox1;
+            this.viewportLayout1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.viewportLayout1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewportLayout1.gridSnapEnabled = false;
+            this.viewportLayout1.Location = new System.Drawing.Point(0, 0);
+            this.viewportLayout1.Name = "viewportLayout1";
+            this.viewportLayout1.objectSnapEnabled = false;
+            this.viewportLayout1.ProgressBar = progressBar1;
+            this.viewportLayout1.Size = new System.Drawing.Size(791, 579);
+            this.viewportLayout1.TabIndex = 0;
+            this.viewportLayout1.Text = "viewportLayout1";
+            coordinateSystemIcon1.LabelFont = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            viewport1.CoordinateSystemIcon = coordinateSystemIcon1;
+            originSymbol1.LabelFont = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            viewport1.OriginSymbol = originSymbol1;
+            viewport1.ViewCubeIcon = viewCubeIcon1;
+            this.viewportLayout1.Viewports.Add(viewport1);
+            this.viewportLayout1.waitingForSelection = false;
+            // 
+            // sensingInterfaceToolStripMenuItem
+            // 
+            this.sensingInterfaceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iOToolStripMenuItem});
+            this.sensingInterfaceToolStripMenuItem.Name = "sensingInterfaceToolStripMenuItem";
+            this.sensingInterfaceToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.sensingInterfaceToolStripMenuItem.Text = "Sensing interface";
+            // 
+            // iOToolStripMenuItem
+            // 
+            this.iOToolStripMenuItem.Name = "iOToolStripMenuItem";
+            this.iOToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iOToolStripMenuItem.Text = "I/O";
+            this.iOToolStripMenuItem.Click += new System.EventHandler(this.iOToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -440,12 +458,12 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.viewportLayout1)).EndInit();
             this.tabControl_properties.ResumeLayout(false);
             this.menuStrip_menu.ResumeLayout(false);
             this.menuStrip_menu.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.viewportLayout1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -488,6 +506,8 @@
         private System.Windows.Forms.ToolStripStatusLabel mainStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel springToolStripStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem iOControlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sensingInterfaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iOToolStripMenuItem;
 
     }
 }
