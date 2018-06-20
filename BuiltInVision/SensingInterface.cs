@@ -1,5 +1,6 @@
 ﻿using GalvoScanner.Common;
 using GalvoScanner.LaserVision.DialogLaserVision;
+using GalvoScanner.LaserVision.OpenCV;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -128,6 +129,7 @@ namespace BuiltInVision
             }
         }
 
+        int m_nPreErrorCnt = 0;
         private void timer_monitor_Tick(object sender, EventArgs e)
         {
             int index = comboBox_sensor_index.SelectedIndex;
@@ -142,6 +144,25 @@ namespace BuiltInVision
                 {
                     label_status_proc.Text = "Process Stopped.";
                 }
+
+                OpenCVData cvData = OpenCVData.GetInstance(index, true);                
+                int nErrorCnt = cvData.GetListError().Count;
+                if (nErrorCnt != m_nPreErrorCnt)
+                {
+                    listView_error.BeginUpdate();
+                    listView_error.Items.Clear();
+                    for (int i = 0; i < nErrorCnt; i++)
+                    {
+                        listView_error.Items.Add(cvData.GetListError()[i]);
+                    }
+
+                    listView_error.EndUpdate();
+
+                    if (listView_error.Items.Count > 0)
+                        listView_error.EnsureVisible(listView_error.Items.Count - 1);
+
+                }
+                m_nPreErrorCnt = nErrorCnt;
             }
         }
 
@@ -151,9 +172,26 @@ namespace BuiltInVision
             if (visionControl != null)
             {
                 visionControl.GrabCamera();
+                visionControl.OriginImageViewer.RefreshImage();
+                visionControl.ProcessingImageViewer.RefreshImage();
                 visionControl.ResultImageViewer.RefreshImage();
                 visionControl.ShowResultViewer();
             }
+        }
+
+        private void button_clear_error_list_Click(object sender, EventArgs e)
+        {
+            int index = comboBox_sensor_index.SelectedIndex;
+            if (index != -1)
+            {
+                OpenCVData cvData = OpenCVData.GetInstance(index, true);
+                cvData.ClearListError();
+            }
+        }
+
+        private void button_test_inputsig_Click(object sender, EventArgs e)
+        {
+            m_procSI.TestInputSignal();
         }
     }
 }

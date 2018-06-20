@@ -52,11 +52,12 @@ namespace GalvoScanner.LaserVision.OpenCV
             }
         }
         private static int m_nListIndex = -1;
-        public static OpenCVData GetInstance(int listIndex)
+        public static OpenCVData GetInstance(int listIndex, bool notChangeIndex = false)
         {
             if (m_listCvData != null && m_listCvData.Count > 0 && listIndex < m_listCvData.Count && listIndex >= 0)
             {
-                m_nListIndex = listIndex;
+                if (!notChangeIndex)
+                    m_nListIndex = listIndex;
                 return m_listCvData[listIndex];
             }
             m_nListIndex = -1;
@@ -1158,19 +1159,24 @@ namespace GalvoScanner.LaserVision.OpenCV
             m_bIsCancleOnecycle = true;
         }
 
-        private List<String> m_listError = new List<string>(10);
+        private const int LIMIT_LIST_ERROR = 50;
+        private List<String> m_listError = new List<string>(LIMIT_LIST_ERROR);
         public List<String> GetListError()
         {
             return m_listError;
         }
         public void AddListError(string error)
         {
-            if (m_listError.Count > 9)
+            if (m_listError.Count > LIMIT_LIST_ERROR - 1)
             {
                 m_listError.RemoveAt(0);
             }
 
             m_listError.Add(error);
+        }
+        public void ClearListError()
+        {
+            m_listError.Clear();
         }
 
         public bool ProcessOneCycle()
@@ -1258,7 +1264,7 @@ namespace GalvoScanner.LaserVision.OpenCV
                                 ProcessHoughLine.houghResultType result = GetProcessHoughLine().ExecuteHoughLines();
                                 if (result == ProcessHoughLine.houghResultType.Tilt)
                                 {
-                                    m_cvData.ResetResultImage();
+                                    ResetResultImage();
                                     AddListError("<Hough Line> Tilt error.");
                                     isError = true;
                                 }
@@ -1281,6 +1287,7 @@ namespace GalvoScanner.LaserVision.OpenCV
             }
             else
             {
+                AddListError("Successed inspection.");
                 return true;
             }
         }

@@ -48,7 +48,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             int visionCnt = OpenCVData.GetOpencvDataCount();
             for (int i = 0; i < visionCnt; i++)
             {
-                m_cvData = OpenCVData.GetInstance(i);
+                m_cvData = OpenCVData.GetInstance(i, true);
                 if (m_cvData.LoadSettingINI(Application.StartupPath + "\\VisionSetting_" + i + ".ini"))
                 {
                     if (comboBox_cam_num.Items.Count > m_cvData.GetCameraNum())

@@ -99,7 +99,7 @@ namespace BuiltInVision
         public Proc_SensorInterface(int index)
         {
             m_nID = index;
-            m_cvData = OpenCVData.GetInstance(index);
+            m_cvData = OpenCVData.GetInstance(index, true);
         }
 
         public void SaveSettingINI(string path)
@@ -179,9 +179,17 @@ namespace BuiltInVision
                         else currInput = false;
                     }
 
+                    if (m_bTestInputSig)
+                    {
+                        currInput = true;
+                    }
+
                     if (currInput && preInput != currInput)
                     {
                         m_cvData.GrabFromCamera();
+                        m_cvData.GrabFromCamera();
+                        m_cvData.GrabFromCamera();
+
                         if (m_cvData.ProcessOneCycle())
                         {
                             io.WriteOutBit(m_nOutputNumberOK, 1U);
@@ -194,6 +202,12 @@ namespace BuiltInVision
                         Thread.Sleep(m_nOutputHoldTime);
                         io.WriteOutBit(m_nOutputNumberOK, 0U);
                         io.WriteOutBit(m_nOutputNumberFAIL, 0U);
+                    }
+
+                    if (m_bTestInputSig)
+                    {
+                        currInput = false;
+                        m_bTestInputSig = false;
                     }
 
                     preInput = currInput;
@@ -222,6 +236,12 @@ namespace BuiltInVision
         public bool IsRunningProcess()
         {
             return (m_thrSensingInterface != null);
+        }
+
+        private bool m_bTestInputSig = false;
+        public void TestInputSignal()
+        {
+            m_bTestInputSig = true;
         }
     }
 }
