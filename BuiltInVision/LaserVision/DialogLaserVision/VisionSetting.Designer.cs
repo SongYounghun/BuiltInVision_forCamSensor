@@ -142,6 +142,7 @@
             this.Controls.Add(this.propertyGrid_vision_setting);
             this.Controls.Add(this.button_Ok);
             this.Name = "VisionSetting";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VisionSetting";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VisionSetting_FormClosing);

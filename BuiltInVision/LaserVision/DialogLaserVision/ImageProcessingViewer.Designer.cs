@@ -128,6 +128,7 @@
             this.Controls.Add(this.button_ROI_clear);
             this.Controls.Add(this.viewportLayout1);
             this.Name = "ImageProcessingViewer";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ImageProcessingViewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageProcessingViewer_FormClosing);

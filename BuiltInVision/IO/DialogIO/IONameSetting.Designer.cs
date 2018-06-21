@@ -70,6 +70,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "IONameSetting";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IONameSetting";
             this.Load += new System.EventHandler(this.IONameSetting_Load);
             this.ResumeLayout(false);

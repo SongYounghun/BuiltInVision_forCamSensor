@@ -32,6 +32,9 @@
             this.propertyGrid_setting_sens_interface = new System.Windows.Forms.PropertyGrid();
             this.comboBox_sensor_index = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button_err_img_path = new System.Windows.Forms.Button();
+            this.textBox_error_img_path = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_clear_error_list = new System.Windows.Forms.Button();
             this.listView_error = new System.Windows.Forms.ListView();
@@ -45,9 +48,6 @@
             this.button_stop_process = new System.Windows.Forms.Button();
             this.button_start_proc = new System.Windows.Forms.Button();
             this.timer_monitor = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox_error_img_path = new System.Windows.Forms.TextBox();
-            this.button_err_img_path = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -85,6 +85,33 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "IO Mapping / Setting";
+            // 
+            // button_err_img_path
+            // 
+            this.button_err_img_path.Location = new System.Drawing.Point(264, 186);
+            this.button_err_img_path.Name = "button_err_img_path";
+            this.button_err_img_path.Size = new System.Drawing.Size(26, 23);
+            this.button_err_img_path.TabIndex = 3;
+            this.button_err_img_path.Text = "...";
+            this.button_err_img_path.UseVisualStyleBackColor = true;
+            this.button_err_img_path.Click += new System.EventHandler(this.button_err_img_path_Click);
+            // 
+            // textBox_error_img_path
+            // 
+            this.textBox_error_img_path.Location = new System.Drawing.Point(36, 188);
+            this.textBox_error_img_path.Name = "textBox_error_img_path";
+            this.textBox_error_img_path.ReadOnly = true;
+            this.textBox_error_img_path.Size = new System.Drawing.Size(222, 21);
+            this.textBox_error_img_path.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 169);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Erorr image path : ";
             // 
             // groupBox2
             // 
@@ -216,33 +243,6 @@
             this.timer_monitor.Enabled = true;
             this.timer_monitor.Tick += new System.EventHandler(this.timer_monitor_Tick);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 169);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Erorr image path : ";
-            // 
-            // textBox_error_img_path
-            // 
-            this.textBox_error_img_path.Location = new System.Drawing.Point(36, 188);
-            this.textBox_error_img_path.Name = "textBox_error_img_path";
-            this.textBox_error_img_path.ReadOnly = true;
-            this.textBox_error_img_path.Size = new System.Drawing.Size(222, 21);
-            this.textBox_error_img_path.TabIndex = 2;
-            // 
-            // button_err_img_path
-            // 
-            this.button_err_img_path.Location = new System.Drawing.Point(264, 186);
-            this.button_err_img_path.Name = "button_err_img_path";
-            this.button_err_img_path.Size = new System.Drawing.Size(26, 23);
-            this.button_err_img_path.TabIndex = 3;
-            this.button_err_img_path.Text = "...";
-            this.button_err_img_path.UseVisualStyleBackColor = true;
-            this.button_err_img_path.Click += new System.EventHandler(this.button_err_img_path_Click);
-            // 
             // SensingInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -253,6 +253,8 @@
             this.Controls.Add(this.comboBox_sensor_index);
             this.Controls.Add(this.groupBox1);
             this.Name = "SensingInterface";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sensing interface";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SensingInterface_FormClosing);
             this.Load += new System.EventHandler(this.SensingInterface_Load);

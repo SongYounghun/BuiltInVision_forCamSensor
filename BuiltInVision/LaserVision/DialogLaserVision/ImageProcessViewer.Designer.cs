@@ -66,6 +66,8 @@
             this.ClientSize = new System.Drawing.Size(461, 405);
             this.Controls.Add(this.panel_outer);
             this.Name = "ImageProcessViewer";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Image viewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageProcessViewer_FormClosing);
             this.Load += new System.EventHandler(this.ImageProcessViewer_Load);

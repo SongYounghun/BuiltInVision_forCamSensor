@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox_insp_in_result_roi = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.button_apply = new System.Windows.Forms.Button();
             this.textBox_hough_thresold = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -45,9 +48,6 @@
             this.button_add_houghline_process = new System.Windows.Forms.Button();
             this.button_exec_hough_line = new System.Windows.Forms.Button();
             this.pictureBox_hough_result = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.checkBox_insp_in_result_roi = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_hough_result)).BeginInit();
             this.SuspendLayout();
@@ -76,6 +76,35 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parameter";
+            // 
+            // checkBox_insp_in_result_roi
+            // 
+            this.checkBox_insp_in_result_roi.AutoSize = true;
+            this.checkBox_insp_in_result_roi.Location = new System.Drawing.Point(234, 77);
+            this.checkBox_insp_in_result_roi.Name = "checkBox_insp_in_result_roi";
+            this.checkBox_insp_in_result_roi.Size = new System.Drawing.Size(155, 16);
+            this.checkBox_insp_in_result_roi.TabIndex = 32;
+            this.checkBox_insp_in_result_roi.Text = "Inspection in result ROI";
+            this.checkBox_insp_in_result_roi.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(380, 50);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(10, 12);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "º";
+            this.label8.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(380, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(10, 12);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "º";
             // 
             // button_apply
             // 
@@ -223,35 +252,6 @@
             this.pictureBox_hough_result.TabStop = false;
             this.pictureBox_hough_result.DoubleClick += new System.EventHandler(this.pictureBox_hough_result_DoubleClick);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(380, 23);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(10, 12);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "º";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(380, 50);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(10, 12);
-            this.label8.TabIndex = 31;
-            this.label8.Text = "º";
-            this.label8.Visible = false;
-            // 
-            // checkBox_insp_in_result_roi
-            // 
-            this.checkBox_insp_in_result_roi.AutoSize = true;
-            this.checkBox_insp_in_result_roi.Location = new System.Drawing.Point(234, 77);
-            this.checkBox_insp_in_result_roi.Name = "checkBox_insp_in_result_roi";
-            this.checkBox_insp_in_result_roi.Size = new System.Drawing.Size(155, 16);
-            this.checkBox_insp_in_result_roi.TabIndex = 32;
-            this.checkBox_insp_in_result_roi.Text = "Inspection in result ROI";
-            this.checkBox_insp_in_result_roi.UseVisualStyleBackColor = true;
-            // 
             // ImageProcess_HoughLine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -265,6 +265,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ImageProcess_HoughLine";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ImageProcess_HoughLine";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageProcess_HoughLine_FormClosing);
             this.Load += new System.EventHandler(this.ImageProcess_HoughLine_Load);

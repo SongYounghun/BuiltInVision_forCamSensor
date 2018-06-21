@@ -32,6 +32,7 @@
             this.textBox_template_image_path = new System.Windows.Forms.TextBox();
             this.button_load_template_image = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button_getfrom_insp_roi = new System.Windows.Forms.Button();
             this.button_apply = new System.Windows.Forms.Button();
             this.textBox_insp_h = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -57,7 +58,6 @@
             this.button_exec_tempate_match = new System.Windows.Forms.Button();
             this.pictureBox_match_result = new System.Windows.Forms.PictureBox();
             this.button_add_templatematch_process = new System.Windows.Forms.Button();
-            this.button_getfrom_insp_roi = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_template_image)).BeginInit();
@@ -118,6 +118,17 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Template image";
+            // 
+            // button_getfrom_insp_roi
+            // 
+            this.button_getfrom_insp_roi.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_getfrom_insp_roi.Location = new System.Drawing.Point(303, 232);
+            this.button_getfrom_insp_roi.Name = "button_getfrom_insp_roi";
+            this.button_getfrom_insp_roi.Size = new System.Drawing.Size(89, 35);
+            this.button_getfrom_insp_roi.TabIndex = 22;
+            this.button_getfrom_insp_roi.Text = "Get from view(Insp roi)";
+            this.button_getfrom_insp_roi.UseVisualStyleBackColor = true;
+            this.button_getfrom_insp_roi.Click += new System.EventHandler(this.button_getfrom_insp_roi_Click);
             // 
             // button_apply
             // 
@@ -352,17 +363,6 @@
             this.button_add_templatematch_process.UseVisualStyleBackColor = true;
             this.button_add_templatematch_process.Click += new System.EventHandler(this.button_add_templatematch_process_Click);
             // 
-            // button_getfrom_insp_roi
-            // 
-            this.button_getfrom_insp_roi.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_getfrom_insp_roi.Location = new System.Drawing.Point(303, 232);
-            this.button_getfrom_insp_roi.Name = "button_getfrom_insp_roi";
-            this.button_getfrom_insp_roi.Size = new System.Drawing.Size(89, 35);
-            this.button_getfrom_insp_roi.TabIndex = 22;
-            this.button_getfrom_insp_roi.Text = "Get from view(Insp roi)";
-            this.button_getfrom_insp_roi.UseVisualStyleBackColor = true;
-            this.button_getfrom_insp_roi.Click += new System.EventHandler(this.button_getfrom_insp_roi_Click);
-            // 
             // ImageProcess_TemplateMatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -372,6 +372,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "ImageProcess_TemplateMatch";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ImageProcess_TemplateMatch";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageProcess_TemplateMatch_FormClosing);

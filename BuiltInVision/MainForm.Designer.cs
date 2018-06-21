@@ -87,12 +87,12 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.gridSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iOControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sensingInterfaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.mainStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.springToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.viewportLayout1 = new BuiltInVision.DraftingViewportLayout();
-            this.sensingInterfaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -353,19 +353,19 @@
             // visionSettingToolStripMenuItem
             // 
             this.visionSettingToolStripMenuItem.Name = "visionSettingToolStripMenuItem";
-            this.visionSettingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.visionSettingToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.visionSettingToolStripMenuItem.Text = "Vision setting";
             this.visionSettingToolStripMenuItem.Click += new System.EventHandler(this.visionSettingToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
             // 
             // gridSettingToolStripMenuItem
             // 
             this.gridSettingToolStripMenuItem.Name = "gridSettingToolStripMenuItem";
-            this.gridSettingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gridSettingToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.gridSettingToolStripMenuItem.Text = "Grid Setting";
             this.gridSettingToolStripMenuItem.Visible = false;
             this.gridSettingToolStripMenuItem.Click += new System.EventHandler(this.gridSettingToolStripMenuItem_Click);
@@ -373,9 +373,24 @@
             // iOControlToolStripMenuItem
             // 
             this.iOControlToolStripMenuItem.Name = "iOControlToolStripMenuItem";
-            this.iOControlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iOControlToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.iOControlToolStripMenuItem.Text = "IO Control";
             this.iOControlToolStripMenuItem.Click += new System.EventHandler(this.iOControlToolStripMenuItem_Click);
+            // 
+            // sensingInterfaceToolStripMenuItem
+            // 
+            this.sensingInterfaceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iOToolStripMenuItem});
+            this.sensingInterfaceToolStripMenuItem.Name = "sensingInterfaceToolStripMenuItem";
+            this.sensingInterfaceToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.sensingInterfaceToolStripMenuItem.Text = "Sensing interface";
+            // 
+            // iOToolStripMenuItem
+            // 
+            this.iOToolStripMenuItem.Name = "iOToolStripMenuItem";
+            this.iOToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.iOToolStripMenuItem.Text = "I/O";
+            this.iOToolStripMenuItem.Click += new System.EventHandler(this.iOToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -426,21 +441,6 @@
             this.viewportLayout1.Viewports.Add(viewport1);
             this.viewportLayout1.waitingForSelection = false;
             // 
-            // sensingInterfaceToolStripMenuItem
-            // 
-            this.sensingInterfaceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.iOToolStripMenuItem});
-            this.sensingInterfaceToolStripMenuItem.Name = "sensingInterfaceToolStripMenuItem";
-            this.sensingInterfaceToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
-            this.sensingInterfaceToolStripMenuItem.Text = "Sensing interface";
-            // 
-            // iOToolStripMenuItem
-            // 
-            this.iOToolStripMenuItem.Name = "iOToolStripMenuItem";
-            this.iOToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.iOToolStripMenuItem.Text = "I/O";
-            this.iOToolStripMenuItem.Click += new System.EventHandler(this.iOToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -451,7 +451,8 @@
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "BuiltInVision";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Camera sensor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);

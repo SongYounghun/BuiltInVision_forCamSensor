@@ -353,6 +353,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
             this.Name = "ImageProcess_FitCircle";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ImageProcess_FitCircle";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageProcess_FitCircle_FormClosing);

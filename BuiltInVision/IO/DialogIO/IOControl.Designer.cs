@@ -136,6 +136,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "IOControl";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IOControl";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IOControl_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.IOControl_FormClosed);
