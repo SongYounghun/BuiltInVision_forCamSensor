@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             devDept.Eyeshot.BoundingBox boundingBox1 = new devDept.Eyeshot.BoundingBox(System.Drawing.Color.Black, System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(63))))), ((ushort)(3855)), false, false, new devDept.Geometry.Point3D(0D, 0D, 0D), new devDept.Geometry.Point3D(1D, 1D, 1D), "", "(Not applicable)", false);
             devDept.Eyeshot.CancelToolBarButton cancelToolBarButton1 = new devDept.Eyeshot.CancelToolBarButton("Cancel", devDept.Eyeshot.ToolBarButton.styleType.ToggleButton, true, true);
             devDept.Eyeshot.ProgressBar progressBar1 = new devDept.Eyeshot.ProgressBar(devDept.Eyeshot.ProgressBar.styleType.CircularWin10, 0, "Idle", System.Drawing.Color.Black, System.Drawing.Color.Transparent, System.Drawing.Color.Green, 1D, true, cancelToolBarButton1, false);
@@ -55,7 +57,6 @@
             devDept.Eyeshot.CoordinateSystemIcon coordinateSystemIcon1 = new devDept.Eyeshot.CoordinateSystemIcon(System.Drawing.Color.Black, System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80))))), System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80))))), System.Drawing.Color.OrangeRed, "Origin", "X", "Y", "Z", true, devDept.Eyeshot.coordinateSystemPositionType.BottomLeft, 37, false);
             devDept.Eyeshot.OriginSymbol originSymbol1 = new devDept.Eyeshot.OriginSymbol(10, devDept.Eyeshot.originSymbolStyleType.Ball, System.Drawing.Color.Black, System.Drawing.Color.Red, System.Drawing.Color.Green, System.Drawing.Color.Blue, "Origin", "X", "Y", "Z", true, null, false);
             devDept.Eyeshot.ViewCubeIcon viewCubeIcon1 = new devDept.Eyeshot.ViewCubeIcon(devDept.Eyeshot.coordinateSystemPositionType.TopRight, false, System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(43)))), ((int)(((byte)(226))))), true, "FRONT", "BACK", "LEFT", "RIGHT", "TOP", "BOTTOM", System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), 'S', 'N', 'W', 'E', true, System.Drawing.Color.White, System.Drawing.Color.Black, 120, true, true, null, null, null, null, null, null, false);
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl_properties = new System.Windows.Forms.TabControl();
             this.tabPage_vision = new System.Windows.Forms.TabPage();
@@ -92,6 +93,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.mainStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.springToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.notifyIcon_camsensor = new System.Windows.Forms.NotifyIcon(this.components);
             this.viewportLayout1 = new BuiltInVision.DraftingViewportLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -420,6 +422,12 @@
             this.springToolStripStatusLabel.Size = new System.Drawing.Size(558, 17);
             this.springToolStripStatusLabel.Spring = true;
             // 
+            // notifyIcon_camsensor
+            // 
+            this.notifyIcon_camsensor.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon_camsensor.Icon")));
+            this.notifyIcon_camsensor.Text = "Camera sensor";
+            this.notifyIcon_camsensor.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_camsensor_MouseDoubleClick);
+            // 
             // viewportLayout1
             // 
             this.viewportLayout1.BoundingBox = boundingBox1;
@@ -455,6 +463,7 @@
             this.Text = "Camera sensor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -509,6 +518,7 @@
         private System.Windows.Forms.ToolStripMenuItem iOControlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sensingInterfaceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iOToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon notifyIcon_camsensor;
 
     }
 }

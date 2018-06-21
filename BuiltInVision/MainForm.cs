@@ -399,6 +399,12 @@ namespace BuiltInVision
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (MessageBox.Show("Do you want to quit program?", "", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+            {
+                e.Cancel = true;
+                return;
+            }
+
             if (m_visionControl != null)
             {
                 m_visionControl.StopContinuousGrab();
@@ -435,6 +441,27 @@ namespace BuiltInVision
 
             m_sensingInterface.Show();
             m_sensingInterface.Focus();
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                notifyIcon_camsensor.Visible = true;
+                Hide();
+            }
+            else
+            {
+                notifyIcon_camsensor.Visible = false;
+                ShowInTaskbar = true;
+            }
+            
+        }
+
+        private void notifyIcon_camsensor_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
         }
     }
 }
