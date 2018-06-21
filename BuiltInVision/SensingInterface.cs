@@ -59,6 +59,7 @@ namespace BuiltInVision
             {
                 m_procSI = Proc_SensorInterface.GetInstance(index);
                 propertyGrid_setting_sens_interface.SelectedObject = m_procSI;
+                textBox_error_img_path.Text = m_procSI.GetErrorImagePath();
             }
         }
 
@@ -192,6 +193,17 @@ namespace BuiltInVision
         private void button_test_inputsig_Click(object sender, EventArgs e)
         {
             m_procSI.TestInputSignal();
+        }
+
+        private void button_err_img_path_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                m_procSI.SetErrorImagePath(fbd.SelectedPath);
+                textBox_error_img_path.Text = m_procSI.GetErrorImagePath();
+                m_procSI.SaveSettingINI(m_strINIPath);
+            }
         }
     }
 }

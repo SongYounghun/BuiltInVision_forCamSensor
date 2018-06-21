@@ -33,18 +33,21 @@
             this.comboBox_sensor_index = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button_clear_error_list = new System.Windows.Forms.Button();
+            this.listView_error = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label_status_proc = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button_test_inputsig = new System.Windows.Forms.Button();
             this.button_show_vision_ui = new System.Windows.Forms.Button();
             this.button_stop_all_proc = new System.Windows.Forms.Button();
             this.button_start_all_proc = new System.Windows.Forms.Button();
             this.button_stop_process = new System.Windows.Forms.Button();
             this.button_start_proc = new System.Windows.Forms.Button();
             this.timer_monitor = new System.Windows.Forms.Timer(this.components);
-            this.listView_error = new System.Windows.Forms.ListView();
-            this.button_clear_error_list = new System.Windows.Forms.Button();
-            this.button_test_inputsig = new System.Windows.Forms.Button();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox_error_img_path = new System.Windows.Forms.TextBox();
+            this.button_err_img_path = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -72,10 +75,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button_err_img_path);
+            this.groupBox1.Controls.Add(this.textBox_error_img_path);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.propertyGrid_setting_sens_interface);
             this.groupBox1.Location = new System.Drawing.Point(91, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(303, 162);
+            this.groupBox1.Size = new System.Drawing.Size(303, 220);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "IO Mapping / Setting";
@@ -85,12 +91,40 @@
             this.groupBox2.Controls.Add(this.button_clear_error_list);
             this.groupBox2.Controls.Add(this.listView_error);
             this.groupBox2.Controls.Add(this.label_status_proc);
-            this.groupBox2.Location = new System.Drawing.Point(91, 180);
+            this.groupBox2.Location = new System.Drawing.Point(91, 257);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(303, 188);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Status";
+            // 
+            // button_clear_error_list
+            // 
+            this.button_clear_error_list.Location = new System.Drawing.Point(222, 159);
+            this.button_clear_error_list.Name = "button_clear_error_list";
+            this.button_clear_error_list.Size = new System.Drawing.Size(75, 23);
+            this.button_clear_error_list.TabIndex = 0;
+            this.button_clear_error_list.Text = "Clear";
+            this.button_clear_error_list.UseVisualStyleBackColor = true;
+            this.button_clear_error_list.Click += new System.EventHandler(this.button_clear_error_list_Click);
+            // 
+            // listView_error
+            // 
+            this.listView_error.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView_error.GridLines = true;
+            this.listView_error.Location = new System.Drawing.Point(6, 52);
+            this.listView_error.MultiSelect = false;
+            this.listView_error.Name = "listView_error";
+            this.listView_error.Size = new System.Drawing.Size(291, 101);
+            this.listView_error.TabIndex = 1;
+            this.listView_error.UseCompatibleStateImageBehavior = false;
+            this.listView_error.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = " Errors";
+            this.columnHeader1.Width = 250;
             // 
             // label_status_proc
             // 
@@ -110,12 +144,22 @@
             this.groupBox3.Controls.Add(this.button_start_all_proc);
             this.groupBox3.Controls.Add(this.button_stop_process);
             this.groupBox3.Controls.Add(this.button_start_proc);
-            this.groupBox3.Location = new System.Drawing.Point(91, 374);
+            this.groupBox3.Location = new System.Drawing.Point(91, 451);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(303, 101);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Control";
+            // 
+            // button_test_inputsig
+            // 
+            this.button_test_inputsig.Location = new System.Drawing.Point(193, 78);
+            this.button_test_inputsig.Name = "button_test_inputsig";
+            this.button_test_inputsig.Size = new System.Drawing.Size(110, 23);
+            this.button_test_inputsig.TabIndex = 5;
+            this.button_test_inputsig.Text = "Test input signal";
+            this.button_test_inputsig.UseVisualStyleBackColor = true;
+            this.button_test_inputsig.Click += new System.EventHandler(this.button_test_inputsig_Click);
             // 
             // button_show_vision_ui
             // 
@@ -172,49 +216,38 @@
             this.timer_monitor.Enabled = true;
             this.timer_monitor.Tick += new System.EventHandler(this.timer_monitor_Tick);
             // 
-            // listView_error
+            // label1
             // 
-            this.listView_error.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.listView_error.GridLines = true;
-            this.listView_error.Location = new System.Drawing.Point(6, 52);
-            this.listView_error.MultiSelect = false;
-            this.listView_error.Name = "listView_error";
-            this.listView_error.Size = new System.Drawing.Size(291, 101);
-            this.listView_error.TabIndex = 1;
-            this.listView_error.UseCompatibleStateImageBehavior = false;
-            this.listView_error.View = System.Windows.Forms.View.Details;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 169);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Erorr image path : ";
             // 
-            // button_clear_error_list
+            // textBox_error_img_path
             // 
-            this.button_clear_error_list.Location = new System.Drawing.Point(222, 159);
-            this.button_clear_error_list.Name = "button_clear_error_list";
-            this.button_clear_error_list.Size = new System.Drawing.Size(75, 23);
-            this.button_clear_error_list.TabIndex = 0;
-            this.button_clear_error_list.Text = "Clear";
-            this.button_clear_error_list.UseVisualStyleBackColor = true;
-            this.button_clear_error_list.Click += new System.EventHandler(this.button_clear_error_list_Click);
+            this.textBox_error_img_path.Location = new System.Drawing.Point(36, 188);
+            this.textBox_error_img_path.Name = "textBox_error_img_path";
+            this.textBox_error_img_path.ReadOnly = true;
+            this.textBox_error_img_path.Size = new System.Drawing.Size(222, 21);
+            this.textBox_error_img_path.TabIndex = 2;
             // 
-            // button_test_inputsig
+            // button_err_img_path
             // 
-            this.button_test_inputsig.Location = new System.Drawing.Point(193, 78);
-            this.button_test_inputsig.Name = "button_test_inputsig";
-            this.button_test_inputsig.Size = new System.Drawing.Size(110, 23);
-            this.button_test_inputsig.TabIndex = 5;
-            this.button_test_inputsig.Text = "Test input signal";
-            this.button_test_inputsig.UseVisualStyleBackColor = true;
-            this.button_test_inputsig.Click += new System.EventHandler(this.button_test_inputsig_Click);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = " Errors";
-            this.columnHeader1.Width = 250;
+            this.button_err_img_path.Location = new System.Drawing.Point(264, 186);
+            this.button_err_img_path.Name = "button_err_img_path";
+            this.button_err_img_path.Size = new System.Drawing.Size(26, 23);
+            this.button_err_img_path.TabIndex = 3;
+            this.button_err_img_path.Text = "...";
+            this.button_err_img_path.UseVisualStyleBackColor = true;
+            this.button_err_img_path.Click += new System.EventHandler(this.button_err_img_path_Click);
             // 
             // SensingInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(406, 487);
+            this.ClientSize = new System.Drawing.Size(406, 558);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.comboBox_sensor_index);
@@ -224,6 +257,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SensingInterface_FormClosing);
             this.Load += new System.EventHandler(this.SensingInterface_Load);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -248,5 +282,8 @@
         private System.Windows.Forms.Button button_clear_error_list;
         private System.Windows.Forms.Button button_test_inputsig;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.Button button_err_img_path;
+        private System.Windows.Forms.TextBox textBox_error_img_path;
+        private System.Windows.Forms.Label label1;
     }
 }

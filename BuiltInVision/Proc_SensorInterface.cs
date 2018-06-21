@@ -1,4 +1,5 @@
 ﻿using GalvoScanner;
+using GalvoScanner.Common;
 using GalvoScanner.IO;
 using GalvoScanner.LaserVision.OpenCV;
 using System;
@@ -52,6 +53,7 @@ namespace BuiltInVision
         public const string SENSINGINTERFACE_KEY_OUTPUTNUMBER_OK = "OUTPUT_NUMBER_OK";
         public const string SENSINGINTERFACE_KEY_OUTPUTNUMBER_FAIL = "OUTPUT_NUMBER_FAIL";
         public const string SENSINGINTERFACE_KEY_OUTPUTHOLDTIME = "OUTPUT_HOLD_TIME";
+        public const string SENSINGINTERFACE_KEY_ERRIMGPATH = "ERROR_IMG_PATH";
 
         private bool m_bIsInputType = false;
         [CategoryAttribute("Sensing interface(I/O)"), DescriptionAttribute("Is input type (If this is false output type)")]
@@ -93,6 +95,17 @@ namespace BuiltInVision
             set { m_nOutputHoldTime = value; }
         }
 
+        private const string ERROR_IMAGE = "\\ERROR_IMAGE.bmp";
+        private string m_strErrImgPath = "";
+        public string GetErrorImagePath()
+        {
+            return m_strErrImgPath;
+        }
+        public void SetErrorImagePath(string path)
+        {
+            m_strErrImgPath = path;
+        }
+
         private OpenCVData m_cvData = null;
         private int m_nID = -1;
 
@@ -114,6 +127,7 @@ namespace BuiltInVision
                 ini.IniWriteValue(section.ToString(), SENSINGINTERFACE_KEY_OUTPUTNUMBER_OK, m_nOutputNumberOK.ToString(), path);
                 ini.IniWriteValue(section.ToString(), SENSINGINTERFACE_KEY_OUTPUTNUMBER_FAIL, m_nOutputNumberFAIL.ToString(), path);
                 ini.IniWriteValue(section.ToString(), SENSINGINTERFACE_KEY_OUTPUTHOLDTIME, m_nOutputHoldTime.ToString(), path);
+                ini.IniWriteValue(section.ToString(), SENSINGINTERFACE_KEY_ERRIMGPATH, m_strErrImgPath, path);
             }
             catch (Exception E)
             {
@@ -144,6 +158,8 @@ namespace BuiltInVision
                     if (!string.IsNullOrEmpty(iniValue)) { m_nOutputNumberFAIL = Convert.ToInt32(iniValue); }
                     iniValue = ini.IniReadValue(section.ToString(), SENSINGINTERFACE_KEY_OUTPUTHOLDTIME, path);
                     if (!string.IsNullOrEmpty(iniValue)) { m_nOutputHoldTime = Convert.ToInt32(iniValue); }
+                    iniValue = ini.IniReadValue(section.ToString(), SENSINGINTERFACE_KEY_ERRIMGPATH, path);
+                    if (!string.IsNullOrEmpty(iniValue)) { m_strErrImgPath = iniValue; }
                 }
             }
             catch (Exception E)
@@ -197,6 +213,19 @@ namespace BuiltInVision
                         else
                         {
                             io.WriteOutBit(m_nOutputNumberFAIL, 1U);
+                            if (string.IsNullOrEmpty(m_strErrImgPath))
+                            {
+                                m_cvData.SaveImage(DefPath.AppStartupPath + ERROR_IMAGE);
+                            }                                
+                            else
+                            {
+                                DirectoryInfo di = new DirectoryInfo(m_strErrImgPath);
+                                if (di.Exists)
+                                    m_cvData.SaveImage(m_strErrImgPath + ERROR_IMAGE);
+                                else
+                                    m_cvData.SaveImage(DefPath.AppStartupPath + ERROR_IMAGE);
+                            }
+                                
                         }
 
                         Thread.Sleep(m_nOutputHoldTime);
