@@ -1172,7 +1172,11 @@ namespace GalvoScanner.LaserVision.OpenCV
                 m_listError.RemoveAt(0);
             }
 
-            m_listError.Add(error);
+            StringBuilder sb = new StringBuilder();
+            DateTime NowData = DateTime.Now;
+            sb.Append(NowData.ToString("<HH:mm:ss")); sb.Append(":"); sb.Append(NowData.Millisecond.ToString("000>")); sb.Append(error);
+
+            m_listError.Add(sb.ToString());
         }
         public void ClearListError()
         {

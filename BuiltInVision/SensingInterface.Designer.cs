@@ -151,7 +151,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = " Errors";
-            this.columnHeader1.Width = 250;
+            this.columnHeader1.Width = 286;
             // 
             // label_status_proc
             // 
