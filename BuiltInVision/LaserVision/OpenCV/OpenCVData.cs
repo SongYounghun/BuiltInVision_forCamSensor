@@ -11,11 +11,30 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing;
 using BuiltInVision.LaserVision.OpenCV;
+using OpenCvSharp.Extensions;
+using DirectShowLib;
+using Camera_NET;
 
 namespace GalvoScanner.LaserVision.OpenCV
 {
     public class OpenCVData
-    {
+    {        
+        public static int GetDeviceCount()
+        {
+            USBCamControl usbCam = USBCamControl.GetInstance();
+            return usbCam.GetDevList().Count;
+        }
+        public static List<DsDevice> GetDevList()
+        {
+            USBCamControl usbCam = USBCamControl.GetInstance();
+            return usbCam.GetDevList();
+        }
+        public static ResolutionList GetResolutionList(int camIndex)
+        {
+            USBCamControl usbCam = USBCamControl.GetInstance();
+            return usbCam.GetResolutionList(camIndex);
+        }
+
         private static List<OpenCVData> m_listCvData = null;
         public static void CreateOpenCvDataList(int count)
         {
@@ -131,7 +150,8 @@ namespace GalvoScanner.LaserVision.OpenCV
         public const string VISIONRCP_KEY_TARGETGROUPINDEX = "TARGET_GROUP_INDEX";
         public const string VISIONRCP_KEY_USETARGETOBJINDEX = "TARGET_GROUP_INDEX_USE";
 
-        CvCapture m_cvCapture;
+        //CvCapture m_cvCapture;
+        
 
         // ------------- 이미지 처리를 위한 Ipl이미지 ----------------//
         #region IplImage for image process
@@ -179,12 +199,12 @@ namespace GalvoScanner.LaserVision.OpenCV
             if (num < 0)
                 return;
             m_nCameraNum = num;
-            if (m_cvCapture != null)
-            {
-                m_cvCapture.Dispose();
-                m_cvCapture = null;
-            }
-            m_cvCapture = CvCapture.FromCamera(CaptureDevice.Any, m_nCameraNum);
+            //if (m_cvCapture != null)
+            //{
+            //    m_cvCapture.Dispose();
+            //    m_cvCapture = null;
+            //}
+            //m_cvCapture = CvCapture.FromCamera(CaptureDevice.Any, m_nCameraNum);
         }
 
         private bool m_bUseVision = false;
@@ -558,11 +578,13 @@ namespace GalvoScanner.LaserVision.OpenCV
 
         ~OpenCVData()
         {
-            if (m_cvCapture != null)
-            {
-                m_cvCapture.Dispose();
-                m_cvCapture = null;
-            }
+            USBCamControl usbCam = USBCamControl.GetInstance();
+            usbCam.CloseCamera();
+            //if (m_cvCapture != null)
+            //{
+            //    m_cvCapture.Dispose();
+            //    m_cvCapture = null;
+            //}
             if (m_pImageFromCam != null)
             {
                 m_pImageFromCam.Dispose();
@@ -590,8 +612,9 @@ namespace GalvoScanner.LaserVision.OpenCV
                     CvCapture cvCapture = CvCapture.FromCamera(i);
                     if (cvCapture != null)
                     {
+                        IntPtr intPt = cvCapture.CvPtr;
                         count++;
-                    }
+                    }                    
                 }
                 catch (Exception)
                 {
@@ -607,7 +630,26 @@ namespace GalvoScanner.LaserVision.OpenCV
             {
                 if (m_nCameraNum < 0)
                     return null;
+                                
+                if (m_pImageFromCam != null)
+                {
+                    m_pImageFromCam.Dispose();
+                    m_pImageFromCam = null;
+                }
 
+                USBCamControl usbCam = USBCamControl.GetInstance();
+                Bitmap btm = usbCam.SnapShotCam(m_nCameraNum);
+                m_pImageFromCam = BitmapConverter.ToIplImage(btm);
+
+                m_nCamPix_W = m_pImageFromCam.Width;
+                m_nCamPix_H = m_pImageFromCam.Height;
+
+                m_nLoadImgWidth = m_nCamPix_W;
+                m_nLoadImgHeight = m_nCamPix_H;
+
+                return m_pImageFromCam;
+
+                /*
                 if (m_cvCapture != null)
                 {                    
                     if (m_pImageFromCam != null)
@@ -688,7 +730,7 @@ namespace GalvoScanner.LaserVision.OpenCV
                     }
                     
                 }
-                return null;
+                */                
             }
             catch (Exception E)
             {
@@ -703,52 +745,52 @@ namespace GalvoScanner.LaserVision.OpenCV
                 if (m_nCameraNum < 0)
                     return;
 
-                if (m_cvCapture != null)
-                {
-                    int delay = 2;
-                    if (m_cvCapture.GetCaptureProperty(CaptureProperty.FrameWidth) != -1)
-                    {
-                        //m_cvCapture.FrameWidth = m_nCamPix_W;
-                        m_cvCapture.SetCaptureProperty(CaptureProperty.FrameWidth, m_nCamPix_W);
-                        Thread.Sleep(delay);
-                    }                    
-                    if (m_cvCapture.GetCaptureProperty(CaptureProperty.FrameHeight) != -1)
-                    {
-                        //m_cvCapture.FrameHeight = m_nCamPix_H;
-                        m_cvCapture.SetCaptureProperty(CaptureProperty.FrameHeight, m_nCamPix_H);
-                        Thread.Sleep(delay);
-                    }                    
-                    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Brightness) != -1)
-                    {
-                        //m_cvCapture.Brightness = m_fCaptBrightness;
-                        m_cvCapture.SetCaptureProperty(CaptureProperty.Brightness, m_fCaptBrightness);
-                        Thread.Sleep(delay);
-                    }
-                    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Exposure) != -1)
-                    {
-                        //m_cvCapture.Exposure = m_fCaptExposure;
-                        m_cvCapture.SetCaptureProperty(CaptureProperty.Exposure, m_fCaptExposure);
-                        Thread.Sleep(delay);
-                    }
-                    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Gain) != -1)
-                    {
-                        //m_cvCapture.Gain = m_fCaptGain;
-                        m_cvCapture.SetCaptureProperty(CaptureProperty.Gain, m_fCaptGain);
-                        Thread.Sleep(delay);
-                    }
-                    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Contrast) != -1)
-                    {
-                        //m_cvCapture.Contrast = m_fCaptContrast;
-                        m_cvCapture.SetCaptureProperty(CaptureProperty.Contrast, m_fCaptContrast);
-                        Thread.Sleep(delay);
-                    }
-                    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Fps) != -1)
-                    {
-                        //m_cvCapture.Fps = m_fCaptFPS;
-                        m_cvCapture.SetCaptureProperty(CaptureProperty.Fps, m_fCaptFPS);
-                        Thread.Sleep(delay);
-                    }
-                }
+                //if (m_cvCapture != null)
+                //{
+                //    int delay = 2;
+                //    if (m_cvCapture.GetCaptureProperty(CaptureProperty.FrameWidth) != -1)
+                //    {
+                //        //m_cvCapture.FrameWidth = m_nCamPix_W;
+                //        m_cvCapture.SetCaptureProperty(CaptureProperty.FrameWidth, m_nCamPix_W);
+                //        Thread.Sleep(delay);
+                //    }                    
+                //    if (m_cvCapture.GetCaptureProperty(CaptureProperty.FrameHeight) != -1)
+                //    {
+                //        //m_cvCapture.FrameHeight = m_nCamPix_H;
+                //        m_cvCapture.SetCaptureProperty(CaptureProperty.FrameHeight, m_nCamPix_H);
+                //        Thread.Sleep(delay);
+                //    }                    
+                //    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Brightness) != -1)
+                //    {
+                //        //m_cvCapture.Brightness = m_fCaptBrightness;
+                //        m_cvCapture.SetCaptureProperty(CaptureProperty.Brightness, m_fCaptBrightness);
+                //        Thread.Sleep(delay);
+                //    }
+                //    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Exposure) != -1)
+                //    {
+                //        //m_cvCapture.Exposure = m_fCaptExposure;
+                //        m_cvCapture.SetCaptureProperty(CaptureProperty.Exposure, m_fCaptExposure);
+                //        Thread.Sleep(delay);
+                //    }
+                //    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Gain) != -1)
+                //    {
+                //        //m_cvCapture.Gain = m_fCaptGain;
+                //        m_cvCapture.SetCaptureProperty(CaptureProperty.Gain, m_fCaptGain);
+                //        Thread.Sleep(delay);
+                //    }
+                //    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Contrast) != -1)
+                //    {
+                //        //m_cvCapture.Contrast = m_fCaptContrast;
+                //        m_cvCapture.SetCaptureProperty(CaptureProperty.Contrast, m_fCaptContrast);
+                //        Thread.Sleep(delay);
+                //    }
+                //    if (m_cvCapture.GetCaptureProperty(CaptureProperty.Fps) != -1)
+                //    {
+                //        //m_cvCapture.Fps = m_fCaptFPS;
+                //        m_cvCapture.SetCaptureProperty(CaptureProperty.Fps, m_fCaptFPS);
+                //        Thread.Sleep(delay);
+                //    }
+                //}
             }
             catch (Exception E)
             {
@@ -763,24 +805,24 @@ namespace GalvoScanner.LaserVision.OpenCV
                 if (m_nCameraNum < 0)
                     return;
 
-                if (m_cvCapture != null)
-                {
-                    int delay = 2;
-                    m_nCamPix_W = (int)m_cvCapture.GetCaptureProperty(CaptureProperty.FrameWidth);
-                    Thread.Sleep(delay);
-                    m_nCamPix_H = (int)m_cvCapture.GetCaptureProperty(CaptureProperty.FrameHeight);
-                    Thread.Sleep(delay);
-                    m_fCaptBrightness = m_cvCapture.GetCaptureProperty(CaptureProperty.Brightness);
-                    Thread.Sleep(delay);
-                    m_fCaptExposure = m_cvCapture.GetCaptureProperty(CaptureProperty.Exposure);
-                    Thread.Sleep(delay);
-                    m_fCaptGain = m_cvCapture.GetCaptureProperty(CaptureProperty.Gain);
-                    Thread.Sleep(delay);
-                    m_fCaptContrast = m_cvCapture.GetCaptureProperty(CaptureProperty.Contrast);
-                    Thread.Sleep(delay);
-                    m_fCaptFPS = m_cvCapture.GetCaptureProperty(CaptureProperty.Fps);
-                    Thread.Sleep(delay);
-                }
+                //if (m_cvCapture != null)
+                //{
+                //    int delay = 2;
+                //    m_nCamPix_W = (int)m_cvCapture.GetCaptureProperty(CaptureProperty.FrameWidth);
+                //    Thread.Sleep(delay);
+                //    m_nCamPix_H = (int)m_cvCapture.GetCaptureProperty(CaptureProperty.FrameHeight);
+                //    Thread.Sleep(delay);
+                //    m_fCaptBrightness = m_cvCapture.GetCaptureProperty(CaptureProperty.Brightness);
+                //    Thread.Sleep(delay);
+                //    m_fCaptExposure = m_cvCapture.GetCaptureProperty(CaptureProperty.Exposure);
+                //    Thread.Sleep(delay);
+                //    m_fCaptGain = m_cvCapture.GetCaptureProperty(CaptureProperty.Gain);
+                //    Thread.Sleep(delay);
+                //    m_fCaptContrast = m_cvCapture.GetCaptureProperty(CaptureProperty.Contrast);
+                //    Thread.Sleep(delay);
+                //    m_fCaptFPS = m_cvCapture.GetCaptureProperty(CaptureProperty.Fps);
+                //    Thread.Sleep(delay);
+                //}
             }
             catch (Exception E)
             {

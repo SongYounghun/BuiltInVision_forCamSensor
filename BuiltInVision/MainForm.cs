@@ -1,4 +1,5 @@
-﻿using devDept.Eyeshot;
+﻿using BuiltInVision.LaserVision.OpenCV;
+using devDept.Eyeshot;
 using devDept.Eyeshot.Entities;
 using devDept.Geometry;
 using GalvoScanner.Common;
@@ -79,6 +80,7 @@ namespace BuiltInVision
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             viewportLayout1.Entities.Parallel = true;
 
             NewViewportLayout();
@@ -414,6 +416,9 @@ namespace BuiltInVision
             {
                 m_sensingInterface.AllStopProc();
             }
+
+            USBCamControl usbCam = USBCamControl.GetInstance();
+            usbCam.CloseCamera();
         }
 
         private void onChangedVisionIndex(object sender, EventArgs e)

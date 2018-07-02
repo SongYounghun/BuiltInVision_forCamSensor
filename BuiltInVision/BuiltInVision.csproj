@@ -73,6 +73,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Camera_NET, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Camera\Camera_NET.dll</HintPath>
+    </Reference>
     <Reference Include="CyUSB, Version=3.4.7.0, Culture=neutral, PublicKeyToken=01f1d2b6c851ae92, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\Illumination\CyUSB.dll</HintPath>
@@ -96,6 +100,10 @@
     <Reference Include="devDept.Graphics.v9, Version=9.0.509.0, Culture=neutral, PublicKeyToken=5385d83d2fb4d7d9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\devDept Software\Eyeshot Ultimate 9.0\Bin\devDept.Graphics.v9.dll</HintPath>
+    </Reference>
+    <Reference Include="DirectShowLib-2010, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Camera\DirectShowLib-2010.dll</HintPath>
     </Reference>
     <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -155,6 +163,7 @@
     <Compile Include="Common\DeltaTau\P_PMAC.cs" />
     <Compile Include="Common\IniFile.cs" />
     <Compile Include="Common\LogFile.cs" />
+    <Compile Include="LaserVision\OpenCV\USBCamControl.cs" />
     <Compile Include="Proc_SensorInterface.cs" />
     <Compile Include="SensingInterface.cs">
       <SubType>Form</SubType>
@@ -393,6 +402,8 @@
     <Content Include="DLL\Ajin\64Bit\EzBasicAxl.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="DLL\Camera\Camera_NET.dll" />
+    <Content Include="DLL\Camera\DirectShowLib-2010.dll" />
     <Content Include="DLL\DeltaTau\PowerPmac32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

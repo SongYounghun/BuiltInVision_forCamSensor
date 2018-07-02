@@ -34,6 +34,8 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             {
                 if (m_parent.ViewerMode == ImageProcessingViewer.viewMode.Processing || (m_parent.ViewerMode == ImageProcessingViewer.viewMode.Result))
                 {
+                    m_cvData = OpenCVData.GetInstance();
+
                     if (m_cvData.GetResultPoint() != new CvPoint(-1, -1))
                     {
                         renderContext.SetColorWireframe(Color.Aqua);

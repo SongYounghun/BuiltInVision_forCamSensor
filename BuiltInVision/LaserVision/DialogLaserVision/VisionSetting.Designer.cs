@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox_vis_index = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.comboBox_pixel_list = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button_Ok
@@ -68,16 +69,16 @@
             // 
             this.comboBox_cam_num.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_cam_num.FormattingEnabled = true;
-            this.comboBox_cam_num.Location = new System.Drawing.Point(201, 32);
+            this.comboBox_cam_num.Location = new System.Drawing.Point(262, 8);
             this.comboBox_cam_num.Name = "comboBox_cam_num";
-            this.comboBox_cam_num.Size = new System.Drawing.Size(61, 20);
+            this.comboBox_cam_num.Size = new System.Drawing.Size(108, 20);
             this.comboBox_cam_num.TabIndex = 20;
             this.comboBox_cam_num.SelectedIndexChanged += new System.EventHandler(this.comboBox_cam_num_SelectedIndexChanged);
             // 
             // checkBox_use_vision
             // 
             this.checkBox_use_vision.AutoSize = true;
-            this.checkBox_use_vision.Location = new System.Drawing.Point(179, 12);
+            this.checkBox_use_vision.Location = new System.Drawing.Point(127, 8);
             this.checkBox_use_vision.Name = "checkBox_use_vision";
             this.checkBox_use_vision.Size = new System.Drawing.Size(83, 16);
             this.checkBox_use_vision.TabIndex = 21;
@@ -92,22 +93,23 @@
             // 
             // button_get_captureproperty
             // 
-            this.button_get_captureproperty.Location = new System.Drawing.Point(268, 12);
+            this.button_get_captureproperty.Location = new System.Drawing.Point(347, 481);
             this.button_get_captureproperty.Name = "button_get_captureproperty";
             this.button_get_captureproperty.Size = new System.Drawing.Size(93, 40);
             this.button_get_captureproperty.TabIndex = 22;
             this.button_get_captureproperty.Text = "Get Capture property";
             this.button_get_captureproperty.UseVisualStyleBackColor = true;
+            this.button_get_captureproperty.Visible = false;
             this.button_get_captureproperty.Click += new System.EventHandler(this.button_get_captureproperty_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(108, 35);
+            this.label1.Location = new System.Drawing.Point(216, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 12);
+            this.label1.Size = new System.Drawing.Size(40, 12);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Cam number :";
+            this.label1.Text = "Cam :";
             // 
             // comboBox_vis_index
             // 
@@ -128,11 +130,23 @@
             this.label2.TabIndex = 25;
             this.label2.Text = "Vision index :";
             // 
+            // comboBox_pixel_list
+            // 
+            this.comboBox_pixel_list.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_pixel_list.FormattingEnabled = true;
+            this.comboBox_pixel_list.Location = new System.Drawing.Point(218, 34);
+            this.comboBox_pixel_list.Name = "comboBox_pixel_list";
+            this.comboBox_pixel_list.Size = new System.Drawing.Size(152, 20);
+            this.comboBox_pixel_list.TabIndex = 26;
+            this.comboBox_pixel_list.Visible = false;
+            this.comboBox_pixel_list.SelectedIndexChanged += new System.EventHandler(this.comboBox_pixel_list_SelectedIndexChanged);
+            // 
             // VisionSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(382, 496);
+            this.Controls.Add(this.comboBox_pixel_list);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox_vis_index);
             this.Controls.Add(this.label1);
@@ -164,6 +178,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_vis_index;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox_pixel_list;
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BuiltInVision;
+using Camera_NET;
 using GalvoScanner.LaserVision.OpenCV;
 using System;
 using System.Collections.Generic;
@@ -39,10 +40,11 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
             m_cvData = OpenCVData.GetInstance();
 
-            int camCnt = m_cvData.GetCameraCount();
+            //int camCnt = m_cvData.GetCameraCount();
+            int camCnt = OpenCVData.GetDeviceCount();
             for (int i = 0; i < camCnt; i++)
             {
-                comboBox_cam_num.Items.Add(i);
+                comboBox_cam_num.Items.Add(i + ":" + OpenCVData.GetDevList()[i].Name);
             }
 
             int visionCnt = OpenCVData.GetOpencvDataCount();
@@ -203,11 +205,28 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
         private void comboBox_cam_num_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (m_bIsCamNotChange)
+            int camIndex = comboBox_cam_num.SelectedIndex;
+            if (camIndex != -1)
             {
-                m_bIsCamNotChange = false;
-                return;
+                ResolutionList rl = OpenCVData.GetResolutionList(camIndex);
+                if (rl == null || rl.Count <= 0)
+                    return;
+
+                comboBox_pixel_list.Items.Clear();
+                for(int i = 0; i < rl.Count; i++)
+                {
+                    comboBox_pixel_list.Items.Add(rl[i].ToString());
+                }
+
+                comboBox_pixel_list.SelectedIndex = 0;
             }
+            
+
+            //if (m_bIsCamNotChange)
+            //{
+            //    m_bIsCamNotChange = false;
+            //    return;
+            //}
 
             //if (!m_bIsLoading)
             //{
@@ -227,10 +246,10 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             //    }                
             //}
             //else
-            {
-                m_cvData.SetCameraNum(comboBox_cam_num.SelectedIndex);
-                SetControlValue();
-            }
+            //{
+            //    m_cvData.SetCameraNum(comboBox_cam_num.SelectedIndex);
+            //    SetControlValue();
+            //}
             
         }
 
@@ -257,11 +276,18 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
                 ChangeVisionSettingEvent();
 
-                if (m_cvData.GrabFromCamera() != null)
+                try
                 {
-                    m_bIsReady = true;
-                    MessageBox.Show(StringLib.Msg_VisionInitialComplete);
-                    return;
+                    if (m_cvData.GrabFromCamera() != null)
+                    {
+                        m_bIsReady = true;
+                        MessageBox.Show(StringLib.Msg_VisionInitialComplete);
+                        return;
+                    }
+                }
+                catch (Exception E)
+                {
+                    MessageBox.Show(E.ToString());
                 }
             }
 
@@ -284,6 +310,36 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             }
             catch (Exception E)
             {
+                MessageBox.Show(E.Message);
+            }
+        }
+
+        private void comboBox_pixel_list_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int visionIndex = comboBox_vis_index.SelectedIndex;
+                int camIndex = comboBox_cam_num.SelectedIndex;
+                if (camIndex != -1 && visionIndex != -1)
+                {
+                    ResolutionList rl = OpenCVData.GetResolutionList(camIndex);
+                    m_cvData = OpenCVData.GetInstance(visionIndex);
+                    int resolutionIndex = comboBox_pixel_list.SelectedIndex;
+                    if (resolutionIndex != -1)
+                    {
+                        m_cvData.CamPixel_Width = rl[resolutionIndex].Width;
+                        m_cvData.CamPixel_Height = rl[resolutionIndex].Height;
+                    }
+                    else
+                    {
+                        m_cvData.CamPixel_Width = rl[0].Width;
+                        m_cvData.CamPixel_Height = rl[0].Height;
+                    }
+                    
+                }                
+            }
+            catch (Exception E)
+            {                
                 MessageBox.Show(E.Message);
             }
         }
