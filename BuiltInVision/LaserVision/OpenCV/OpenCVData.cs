@@ -579,7 +579,14 @@ namespace GalvoScanner.LaserVision.OpenCV
         ~OpenCVData()
         {
             USBCamControl usbCam = USBCamControl.GetInstance();
-            usbCam.CloseCamera();
+            try
+            {
+                usbCam.CloseCamera();
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message);
+            }
             //if (m_cvCapture != null)
             //{
             //    m_cvCapture.Dispose();
