@@ -658,6 +658,13 @@ namespace GalvoScanner.LaserVision.OpenCV
                     if (btm != null)
                     {
                         m_pImageFromCam = BitmapConverter.ToIplImage(btm);
+
+                        m_nCamPix_W = m_pImageFromCam.Width;
+                        m_nCamPix_H = m_pImageFromCam.Height;
+
+                        m_nLoadImgWidth = m_nCamPix_W;
+                        m_nLoadImgHeight = m_nCamPix_H;
+
                         return m_pImageFromCam;
                     }
                     else
