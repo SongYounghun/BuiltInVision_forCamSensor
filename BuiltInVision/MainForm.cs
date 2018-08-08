@@ -1,4 +1,5 @@
-﻿using BuiltInVision.LaserVision.OpenCV;
+﻿using BuiltInVision.LaserVision.DialogLaserVision;
+using BuiltInVision.LaserVision.OpenCV;
 using devDept.Eyeshot;
 using devDept.Eyeshot.Entities;
 using devDept.Geometry;
@@ -29,7 +30,7 @@ namespace BuiltInVision
         OpenCVData m_cvData = null;
         LaserVisionControl m_visionControl = null;
         //LightControl m_LightControl = null;
-        VisionSetting m_VisionSetting = null;
+        //VisionSetting m_VisionSetting = null;        
         IOControl m_ioControl = null;
         SensingInterface m_sensingInterface = null;
 
@@ -60,7 +61,7 @@ namespace BuiltInVision
                 m_visionControl.SetLayout(viewportLayout1);
                 m_visionControl.Dock = DockStyle.Fill;
                 tabPage_vision.Controls.Add(m_visionControl);
-                m_visionControl.Enabled = m_cvData.GetUseVision();
+                //m_visionControl.Enabled = m_cvData.GetUseVision();
                 m_visionControl.GrabFromCamera += new EventHandler(GrabFromVisionControl);
                 m_visionControl.VisionVisibleCheckBox.CheckedChanged += new EventHandler(checkBox_vision_visible_CheckedChanged);
             }
@@ -87,9 +88,9 @@ namespace BuiltInVision
 
             if (m_cvData != null)
             {
-                if (m_VisionSetting == null)
+                //if (m_VisionSetting == null)                
                 {
-                    m_VisionSetting = new VisionSetting();
+                    //m_VisionSetting = new VisionSetting();                    
 
                     if (m_visionControl != null)
                     {
@@ -114,19 +115,19 @@ namespace BuiltInVision
                     Point2D pt = new Point2D(-(picEnt.Width / 2), -(picEnt.Height / 2));
                     picEnt.Translate(pt.X - currPt.X, pt.Y - currPt.Y, 0);
 
-                    picEnt.Visible = m_cvData.GetUseVision();
+                    //picEnt.Visible = m_cvData.GetUseVision();
 
                     viewportLayout1.Entities.Regen();
                     viewportLayout1.Invalidate();
 
 
-                    if (!m_cvData.GetUseVision())
-                    {
-                        tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_vision"));
-                        //tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_Light"));
-                    }
+                    //if (!m_cvData.GetUseVision())
+                    //{
+                    //    tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_vision"));
+                    //    //tabControl_properties.TabPages.RemoveAt(tabControl_properties.TabPages.IndexOfKey("tabPage_Light"));
+                    //}
 
-                    m_VisionSetting.ChangedVisionSetting += new EventHandler(ChangedVisionSetting);
+                    //m_VisionSetting.ChangedVisionSetting += new EventHandler(ChangedVisionSetting);
                     m_visionControl.ChangedVisionIndex += new EventHandler(onChangedVisionIndex);
                 }
             }
@@ -270,7 +271,7 @@ namespace BuiltInVision
                     }
                 }
 
-                m_visionControl.Enabled = m_cvData.GetUseVision();
+                //m_visionControl.Enabled = m_cvData.GetUseVision();
 
                 ResetGrid();
             }
@@ -295,7 +296,7 @@ namespace BuiltInVision
                 IplImage pImage = Cv.CreateImage(new CvSize(m_cvData.CamPixel_Width, m_cvData.CamPixel_Height), BitDepth.U8, 1);
                 Point3D pt = new Point3D((m_cvData.CamFOV_Width * m_cvData.TileArray.X / 2) * -1, (m_cvData.CamFOV_Height * m_cvData.TileArray.X / 2) * -1, -0.001);
                 Picture pict = new Picture(viewportLayout1.GetPlane(), pt, m_cvData.CamFOV_Width * m_cvData.TileArray.X, m_cvData.CamFOV_Height * m_cvData.TileArray.X, BitmapConverter.ToBitmap(pImage));
-                pict.Visible = m_cvData.GetUseVision();
+                //pict.Visible = m_cvData.GetUseVision();
                 pict.Selectable = false;
                 pict.Lighted = false;
                 pict.DrawEdge = false;
@@ -341,12 +342,12 @@ namespace BuiltInVision
                 Point2D pt = new Point2D(-(picEnt.Width / 2), -(picEnt.Height / 2));
                 picEnt.Translate(pt.X - currPt.X, pt.Y - currPt.Y, 0);
 
-                picEnt.Visible = m_cvData.GetUseVision();
+                //picEnt.Visible = m_cvData.GetUseVision();
 
                 viewportLayout1.Entities.Regen();
                 viewportLayout1.Invalidate();
 
-                m_visionControl.Enabled = m_cvData.GetUseVision();
+                //m_visionControl.Enabled = m_cvData.GetUseVision();
             }
 
             viewportLayout1.Layers[0].LineWeight = 1;
@@ -357,14 +358,19 @@ namespace BuiltInVision
 
         private void visionSettingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (m_VisionSetting == null)
-            {
-                m_VisionSetting = new VisionSetting();
-                m_VisionSetting.ChangedVisionSetting += new EventHandler(ChangedVisionSetting);
-            }
+            //if (m_VisionSetting == null)
+            //{
+            //    m_VisionSetting = new VisionSetting();
+            //    m_VisionSetting.ChangedVisionSetting += new EventHandler(ChangedVisionSetting);
+            //}
 
-            m_VisionSetting.Show();
-            m_VisionSetting.Focus();
+            //m_VisionSetting.Show();
+            //m_VisionSetting.Focus();
+
+            VisionSetting_HTTP visionSetting_http = new VisionSetting_HTTP();
+            visionSetting_http.ShowDialog();
+
+            //m_visionControl.Enabled = m_cvData.GetUseVision();
 
             m_visionControl.StopContinuousGrab();
         }

@@ -115,7 +115,8 @@ namespace BuiltInVision.LaserVision.OpenCV
             }
 
             Thread.Sleep(300);
-            m_listCamera[0].CloseAll();
+            if (m_listCamera.Count > 0)
+                m_listCamera[0].CloseAll();
 
             m_listCamera.Clear();
             m_listIsRun.Clear();

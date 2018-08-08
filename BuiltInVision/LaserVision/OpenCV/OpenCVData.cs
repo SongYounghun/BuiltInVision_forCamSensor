@@ -35,6 +35,9 @@ namespace GalvoScanner.LaserVision.OpenCV
             return usbCam.GetResolutionList(camIndex);
         }
 
+
+
+        // OpencvData List--------------------------------------------------------------------------
         private static List<OpenCVData> m_listCvData = null;
         public static void CreateOpenCvDataList(int count)
         {
@@ -60,7 +63,8 @@ namespace GalvoScanner.LaserVision.OpenCV
                     m_listCvData = new List<OpenCVData>();
                     for (int i = 0; i < count; i++)
                     {
-                        OpenCVData cvData = new OpenCVData();
+                        OpenCVData cvData = new OpenCVData(i);
+                        cvData.LoadSettingINI(Application.StartupPath + "\\VisionSetting_" + i + ".ini");
                         m_listCvData.Add(cvData);
                     }
                     if (count > 0)
@@ -90,6 +94,7 @@ namespace GalvoScanner.LaserVision.OpenCV
             }
             return 0;
         }
+        // OpencvData List--------------------------------------------------------------------------
 
 
 
@@ -206,6 +211,9 @@ namespace GalvoScanner.LaserVision.OpenCV
             //}
             //m_cvCapture = CvCapture.FromCamera(CaptureDevice.Any, m_nCameraNum);
         }
+
+        private HTTP_Cam m_httpCam;
+        public HTTP_Cam HTTP_Camera { get { return m_httpCam; } }
 
         private bool m_bUseVision = false;
         public bool GetUseVision()
@@ -567,8 +575,11 @@ namespace GalvoScanner.LaserVision.OpenCV
             set { m_nContinuousInterval = value; }
         }
 
-        public OpenCVData()
+        public OpenCVData(int index = -1)
         {
+            m_httpCam = new HTTP_Cam(index);
+            m_httpCam.SetInit();
+
             m_processTempMatch = new ProcessTemplateMatch(this);
             m_processCalFindCenter = new ProcessCalFindCenter(this);
             m_processThreshold = new ProcessThreshold(this);
@@ -635,6 +646,32 @@ namespace GalvoScanner.LaserVision.OpenCV
         {
             try
             {
+                if (m_pImageFromCam != null)
+                {
+                    m_pImageFromCam.Dispose();
+                    m_pImageFromCam = null;
+                }
+
+                if (m_httpCam.IsInitialize)
+                {
+                    Bitmap btm = m_httpCam.SnapShot();
+                    if (btm != null)
+                    {
+                        m_pImageFromCam = BitmapConverter.ToIplImage(btm);
+                        return m_pImageFromCam;
+                    }
+                    else
+                    {
+                        return null;
+                    }                    
+                }
+                else
+                {
+                    return null;
+                }                    
+
+
+                /*
                 if (m_nCameraNum < 0)
                     return null;
                                 
@@ -655,6 +692,9 @@ namespace GalvoScanner.LaserVision.OpenCV
                 m_nLoadImgHeight = m_nCamPix_H;
 
                 return m_pImageFromCam;
+                 * */
+
+
 
                 /*
                 if (m_cvCapture != null)

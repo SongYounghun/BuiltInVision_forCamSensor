@@ -127,6 +127,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -163,6 +165,13 @@
     <Compile Include="Common\DeltaTau\P_PMAC.cs" />
     <Compile Include="Common\IniFile.cs" />
     <Compile Include="Common\LogFile.cs" />
+    <Compile Include="LaserVision\DialogLaserVision\VisionSetting_HTTP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserVision\DialogLaserVision\VisionSetting_HTTP.Designer.cs">
+      <DependentUpon>VisionSetting_HTTP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserVision\OpenCV\HTTP_Cam.cs" />
     <Compile Include="LaserVision\OpenCV\USBCamControl.cs" />
     <Compile Include="Proc_SensorInterface.cs" />
     <Compile Include="SensingInterface.cs">
@@ -270,6 +279,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StringLib.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LaserVision\DialogLaserVision\VisionSetting_HTTP.resx">
+      <DependentUpon>VisionSetting_HTTP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SensingInterface.resx">
       <DependentUpon>SensingInterface.cs</DependentUpon>
     </EmbeddedResource>

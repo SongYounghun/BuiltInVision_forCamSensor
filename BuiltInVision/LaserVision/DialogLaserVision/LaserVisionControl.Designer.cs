@@ -102,7 +102,7 @@
             this.groupBox1.Controls.Add(this.button_one_shot);
             this.groupBox1.Location = new System.Drawing.Point(3, 33);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(311, 52);
+            this.groupBox1.Size = new System.Drawing.Size(310, 52);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Camera";
@@ -138,7 +138,7 @@
             this.groupBox2.Controls.Add(this.button_file_saveImage);
             this.groupBox2.Location = new System.Drawing.Point(4, 91);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(311, 74);
+            this.groupBox2.Size = new System.Drawing.Size(310, 74);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File";
@@ -211,7 +211,7 @@
             this.textBox_recipe_path.Location = new System.Drawing.Point(97, 195);
             this.textBox_recipe_path.Name = "textBox_recipe_path";
             this.textBox_recipe_path.ReadOnly = true;
-            this.textBox_recipe_path.Size = new System.Drawing.Size(209, 21);
+            this.textBox_recipe_path.Size = new System.Drawing.Size(223, 21);
             this.textBox_recipe_path.TabIndex = 8;
             // 
             // label1
@@ -264,7 +264,7 @@
             this.groupBox3.Controls.Add(this.button_origin_viewer);
             this.groupBox3.Location = new System.Drawing.Point(4, 226);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(311, 52);
+            this.groupBox3.Size = new System.Drawing.Size(310, 52);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Image viewer";
@@ -323,7 +323,7 @@
             this.groupBox4.Controls.Add(this.button_result_reset);
             this.groupBox4.Location = new System.Drawing.Point(3, 284);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(311, 202);
+            this.groupBox4.Size = new System.Drawing.Size(310, 202);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Image process";
@@ -355,7 +355,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_one_cycle.Location = new System.Drawing.Point(154, 163);
             this.button_one_cycle.Name = "button_one_cycle";
-            this.button_one_cycle.Size = new System.Drawing.Size(142, 33);
+            this.button_one_cycle.Size = new System.Drawing.Size(141, 33);
             this.button_one_cycle.TabIndex = 7;
             this.button_one_cycle.Text = "One cycle process";
             this.button_one_cycle.UseVisualStyleBackColor = true;
@@ -367,7 +367,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_list_clear.Location = new System.Drawing.Point(154, 134);
             this.button_list_clear.Name = "button_list_clear";
-            this.button_list_clear.Size = new System.Drawing.Size(142, 23);
+            this.button_list_clear.Size = new System.Drawing.Size(141, 23);
             this.button_list_clear.TabIndex = 6;
             this.button_list_clear.Text = "Clear";
             this.button_list_clear.UseVisualStyleBackColor = true;
@@ -389,7 +389,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView_image_process.Location = new System.Drawing.Point(154, 20);
             this.listView_image_process.Name = "listView_image_process";
-            this.listView_image_process.Size = new System.Drawing.Size(142, 108);
+            this.listView_image_process.Size = new System.Drawing.Size(141, 108);
             this.listView_image_process.TabIndex = 4;
             this.listView_image_process.UseCompatibleStateImageBehavior = false;
             this.listView_image_process.View = System.Windows.Forms.View.List;
@@ -418,7 +418,7 @@
             this.groupBox5.Controls.Add(this.button_move_obj);
             this.groupBox5.Location = new System.Drawing.Point(3, 589);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(311, 150);
+            this.groupBox5.Size = new System.Drawing.Size(310, 150);
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Mark target position";
@@ -579,20 +579,19 @@
             this.groupBox6.Controls.Add(this.label2);
             this.groupBox6.Controls.Add(this.textBox_autosave_path);
             this.groupBox6.Controls.Add(this.checkBox_autosave_enable);
-            this.groupBox6.Location = new System.Drawing.Point(3, 638);
+            this.groupBox6.Location = new System.Drawing.Point(4, 500);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(311, 101);
+            this.groupBox6.Size = new System.Drawing.Size(310, 101);
             this.groupBox6.TabIndex = 10;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Auto save (in Continuous)";
-            this.groupBox6.Visible = false;
             // 
             // comboBox_vision_num
             // 
             this.comboBox_vision_num.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_vision_num.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_vision_num.FormattingEnabled = true;
-            this.comboBox_vision_num.Location = new System.Drawing.Point(227, 3);
+            this.comboBox_vision_num.Location = new System.Drawing.Point(241, 3);
             this.comboBox_vision_num.Name = "comboBox_vision_num";
             this.comboBox_vision_num.Size = new System.Drawing.Size(78, 20);
             this.comboBox_vision_num.TabIndex = 11;
@@ -617,10 +616,9 @@
             this.Controls.Add(this.checkBox_vision_visible);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Enabled = false;
             this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.Name = "LaserVisionControl";
-            this.Size = new System.Drawing.Size(308, 751);
+            this.Size = new System.Drawing.Size(322, 751);
             this.Load += new System.EventHandler(this.LaserVisionControl_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

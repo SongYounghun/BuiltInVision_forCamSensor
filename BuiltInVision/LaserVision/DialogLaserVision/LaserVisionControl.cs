@@ -456,6 +456,8 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
             {
                 if (isLoad)
                 {
+                    groupBox1.Enabled = groupBox2.Enabled = groupBox3.Enabled = groupBox4.Enabled = groupBox6.Enabled = m_cvData.GetUseVision();
+
                     List<GalvoScanner.LaserVision.OpenCV.OpenCVData.processType> listProcess = m_cvData.GetListProcess();
                     if (listProcess != null)
                     {
