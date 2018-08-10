@@ -368,8 +368,7 @@ namespace GalvoScanner.LaserVision.DialogLaserVision
 
                     case OpenCVData.modeType.BuiltInVision:
                     case OpenCVData.modeType.GeneralArea:
-                        {
-                            m_cvData.GrabFromCamera();
+                        {                            
                             GrabCamera();
                         }
                         break;
